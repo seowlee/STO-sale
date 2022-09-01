@@ -39,4 +39,18 @@ public class MemoRepositoryTest {
     }
 
     // Update
+    @Test
+    public void UpdateDummies() {
+        Memo memo = Memo.builder().id(10L).memoText("Update Text").build();
+
+        memoRepository.save(memo);
+    }
+
+    // Delete
+    @Test
+    public void deleteDummies() {
+        Long id = 10L;
+
+        memoRepository.deleteById(id);
+    }
 }
