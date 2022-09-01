@@ -18,7 +18,6 @@ public class MemoRepositoryTest {
     public void InsertDummies() {
         IntStream.rangeClosed(1, 10).forEach(i -> {
             Memo memo = Memo.builder().memoText("Sample..." + i).build();
-
             memoRepository.save(memo);
         });
     }
@@ -28,11 +27,10 @@ public class MemoRepositoryTest {
     public void SelectDummies() {
 
         Long id = 10L;
-
         Optional<Memo> result = memoRepository.findById(id);
         System.out.println("===========================");
 
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             Memo memo = result.get();
             System.out.println(memo);
         }
