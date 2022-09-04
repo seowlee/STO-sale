@@ -7,7 +7,7 @@ import ListProductsSalePage from "./pages/ListProductsSalePage";
 import MyPage from "./pages/MyPage";
 
 function App() {
-  const [message, setMessage] = useState([]);
+  // const [message, setMessage] = useState([]);
 
   // useEffect(() => {
   //   fetch("/hello")
@@ -16,6 +16,19 @@ function App() {
   //     })
   //     .then((data) => {
   //       setMessage(data);
+  //     });
+  // }, []);
+
+  // const [member, setMember] = useState([]);
+  // console.log("test", member);
+
+  // useEffect(() => {
+  //   fetch("/member/select")
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       setMember(data);
   //     });
   // }, []);
 

@@ -16,13 +16,13 @@ public class MemberAPIController {
     private MemberRepository memberRepository;
 
     @RequestMapping(value = "/select", method = {RequestMethod.GET, RequestMethod.POST})
-    public List<Member> selectAll() {
+    public List<Product> selectAll() {
         return memberRepository.findAll();
     }
 
     @RequestMapping(value = "/insert", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json; charset=utf-8")
-    public Member insert(@RequestBody Map<String, String> map) {
-        return memberRepository.save(new Member(map.get("id"), map.get("name"), map.get("password")));
+    public Product insert(@RequestBody Map<String, String> map) {
+        return memberRepository.save(new Product(map.get("id"), map.get("name"), map.get("password")));
     }
-    
+
 }

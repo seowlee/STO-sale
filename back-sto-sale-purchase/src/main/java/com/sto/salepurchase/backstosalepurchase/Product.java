@@ -14,9 +14,9 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class Member {
-    @Id
-    private String id;
-    private String name;
-    private String password;
+	@Id
+	private String id;
+	private String name;
+	private String password;
 
 }

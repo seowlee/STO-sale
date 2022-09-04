@@ -10,42 +10,49 @@ import {
   InputAdornment,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import axios from "axios";
 
 const SalesRegistrationPage = (props) => {
-  const [isShown, setIsShown] = useState(false);
+  const [isShownRegProducts, setIsShownRegProducts] = useState(false);
 
-  const handleClick = (event) => {
-    setIsShown((current) => !current);
+  const handleClickRegProducts = (event) => {
+    setIsShownRegProducts((current) => !current);
   };
+
   const [member, setMember] = useState([]);
-
+  // console.log("mem", member);
   useEffect(() => {
-    fetch("/member/select")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setMember(data);
-      });
+    axios.get("/member/select").then((res) => {
+      setMember(res.data);
+      console.log("test", res);
+    });
   }, []);
-  const [expanded, setExpanded] = React.useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const [expandedAccordion, setExpandedAccordion] = React.useState(false);
+
+  const handleChangeAccordion = (panel) => (event, isExpanded) => {
+    setExpandedAccordion(isExpanded ? panel : false);
+  };
+
+  const handleClickRegister = (event, id) => {
+    alert("save");
+    setMember(member.filter((member) => member.id !== id));
+    console.log("after", member);
   };
 
   return (
     <div>
       <br />
-      <Button size="large" variant="contained" onClick={handleClick}>
+      <Button size="large" variant="contained" onClick={handleClickRegProducts}>
         등록된 상품 보기
       </Button>
-      {isShown && (
+      {isShownRegProducts && (
         <div>
           {member.map((v, idx) => (
             <Accordion
-              expanded={expanded === `panel_${idx}`}
-              onChange={handleChange(`panel_${idx}`)}
+              key={v.id}
+              expanded={expandedAccordion === `panel_${idx}`}
+              onChange={handleChangeAccordion(`panel_${idx}`)}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -78,7 +85,7 @@ const SalesRegistrationPage = (props) => {
                 <Button
                   size="small"
                   color="primary"
-                  onClick={() => alert("save")}
+                  onClick={(event) => handleClickRegister(event, idx)}
                 >
                   판매등록
                 </Button>
@@ -87,7 +94,7 @@ const SalesRegistrationPage = (props) => {
           ))}
         </div>
       )}
-      {isShown && <div>hi</div>}
+      {isShownRegProducts && <div>hi</div>}
     </div>
   );
 };
