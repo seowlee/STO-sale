@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/product")
+@RequestMapping("/member")
 @RestController
-public class ProductAPIController {
-	@Autowired
-	private ProductRepository productRepository;
+public class MemberAPIController {
+    @Autowired
+    private MemberRepository memberRepository;
 
-	@RequestMapping(value = "/select", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<Product> selectAll() {
-		return productRepository.findAll();
-	}
+    @RequestMapping(value = "/select", method = {RequestMethod.GET, RequestMethod.POST})
+    public List<Product> selectAll() {
+        return memberRepository.findAll();
+    }
 
-	@RequestMapping(value = "/insert", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json; charset=utf-8")
-	public Product insert(@RequestBody Map<String, String> map) {
-		return productRepository.save(new Product(map.get("id"), map.get("name"), map.get("password")));
-	}
+    @RequestMapping(value = "/insert", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json; charset=utf-8")
+    public Product insert(@RequestBody Map<String, String> map) {
+        return memberRepository.save(new Product(map.get("id"), map.get("name"), map.get("password")));
+    }
 
 }
