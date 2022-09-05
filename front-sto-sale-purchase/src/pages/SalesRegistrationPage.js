@@ -19,11 +19,11 @@ const SalesRegistrationPage = (props) => {
     setIsShownRegProducts((current) => !current);
   };
 
-  const [member, setMember] = useState([]);
-  // console.log("mem", member);
+  const [product, setProduct] = useState([]);
+  // console.log("mem", product);
   useEffect(() => {
     axios.get("/product/select").then((res) => {
-      setMember(res.data);
+      setProduct(res.data);
       console.log("test", res);
     });
   }, []);
@@ -34,10 +34,18 @@ const SalesRegistrationPage = (props) => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
 
+  const [numberOfToken, setNumberOfToken] = useState();
   const handleClickRegister = (event, id) => {
     alert("save");
-    setMember(member.filter((member) => member.id !== id));
-    console.log("after", member);
+    axios
+      .get("/product/insert", {
+        params: { numberOfToken: numberOfToken },
+      })
+      .catch(function () {
+        console.log("실패");
+      });
+    // setProduct(product.filter((product) => product.id !== id));
+    console.log("after", product);
   };
 
   return (
@@ -48,7 +56,7 @@ const SalesRegistrationPage = (props) => {
       </Button>
       {isShownRegProducts && (
         <div>
-          {member.map((v, idx) => (
+          {product.map((v, idx) => (
             <Accordion
               key={v.id}
               expanded={expandedAccordion === `panel_${idx}`}
@@ -75,6 +83,9 @@ const SalesRegistrationPage = (props) => {
                   endAdornment: (
                     <InputAdornment position="end">조각</InputAdornment>
                   ),
+                }}
+                onChange={(e) => {
+                  setNumberOfToken(e.target.value);
                 }}
               />
               <Divider />

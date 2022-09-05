@@ -1,28 +1,33 @@
 package com.sto.salepurchase.backstosalepurchase;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-@RequestMapping("/member")
 @RestController
-public class MemberAPIController {
-    @Autowired
-    private MemberRepository memberRepository;
+public class ProductAPIController {
+	@Autowired
+	private ProductRepository productRepository;
 
-    @RequestMapping(value = "/select", method = {RequestMethod.GET, RequestMethod.POST})
-    public List<Product> selectAll() {
-        return memberRepository.findAll();
-    }
+	@RequestMapping(value = "product/select", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Product> selectAll() {
+		return productRepository.findAll();
+	}
 
-    @RequestMapping(value = "/insert", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json; charset=utf-8")
-    public Product insert(@RequestBody Map<String, String> map) {
-        return memberRepository.save(new Product(map.get("id"), map.get("name"), map.get("password")));
-    }
+	// fixxxx
+	@GetMapping("/product/insert")
+	public List<Integer> numOfTokenInsert(@RequestParam Integer numberOfToken) {
+		System.out.println("numOfToken : " + numberOfToken);
+//		System.out.println(numberOfToken.getClass().getName());
+		return Arrays.asList(numberOfToken);
+	}
 
+	@GetMapping("test")
+	public List<Integer> Test() {
+		int num = 33;
+		System.out.println(((Object) num).getClass().getName());
+		return Arrays.asList(8080, 3000);
+	}
 }
