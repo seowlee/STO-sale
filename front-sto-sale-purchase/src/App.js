@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
+import NavigationBar from "./components/NavigationBar";
 import SalesRegistrationPage from "./pages/SalesRegistrationPage";
 import ListProductsSalePage from "./pages/ListProductsSalePage";
 import MyPage from "./pages/MyPage";
+import PurchasePage from "./pages/PurchasePage";
 
 function App() {
   // const [message, setMessage] = useState([]);
@@ -59,8 +60,9 @@ function App() {
             element={<ListProductsSalePage />}
           ></Route>
           <Route path="/myPage" element={<MyPage />}></Route>
+          <Route path="/purchase" element={<PurchasePage />}></Route>
         </Routes>
-        <Navigation />
+        <NavigationBar />
       </BrowserRouter>
     </div>
   );
