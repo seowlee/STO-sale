@@ -8,6 +8,7 @@ import {
   TextField,
   Divider,
   InputAdornment,
+  Stack,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
@@ -28,15 +29,18 @@ const SalesRegistrationPage = (props) => {
     });
   }, []);
 
-  const [expandedAccordion, setExpandedAccordion] = React.useState(false);
+  const [expandedAccordion, setExpandedAccordion] = useState(false);
 
   const handleChangeAccordion = (panel) => (event, isExpanded) => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
 
-  const [numberOfToken, setNumberOfToken] = useState();
+  const [numberOfToken, setNumberOfToken] = useState(0);
+  const [saleStartDate, setSaleStartDate] = useState("");
   const handleClickRegister = (event, id) => {
-    alert("save");
+    alert(
+      `분할 조각 개수 : ${numberOfToken}\n판매시작일 : ${saleStartDate}\nsave`
+    );
     axios
       .get("/product/insert", {
         params: { numberOfToken: numberOfToken },
@@ -47,6 +51,14 @@ const SalesRegistrationPage = (props) => {
     // setProduct(product.filter((product) => product.id !== id));
     console.log("after", product);
   };
+  const handleClickNotRegister = (event, id) => {
+    alert(`cancel`);
+  };
+  const dateNow = new Date();
+  const today = dateNow.toISOString().slice(0, 10);
+  // const passSaleStartDate = (saleDate) => {
+  //   console.log("saleDate", saleDate);
+  // };
 
   return (
     <div>
@@ -67,7 +79,9 @@ const SalesRegistrationPage = (props) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
-                <div>id:{v.id}</div>
+                <Stack spacing={2}>
+                  <div>id : {v.id}</div>
+                </Stack>
               </AccordionSummary>
               <AccordionDetails>
                 <div>
@@ -87,10 +101,27 @@ const SalesRegistrationPage = (props) => {
                 onChange={(e) => {
                   setNumberOfToken(e.target.value);
                 }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                id="date"
+                label="판매 시작일"
+                type="date"
+                defaultValue={today}
+                onChange={(e) => setSaleStartDate(e.target.value)}
+                inputProps={{ min: today }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
               <Divider />
               <AccordionActions>
-                <Button size="small" onClick={() => alert("cancel")}>
+                <Button
+                  size="small"
+                  onClick={(event) => handleClickNotRegister(event, idx)}
+                >
                   취소
                 </Button>
                 <Button
