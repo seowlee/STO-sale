@@ -36,7 +36,10 @@ const SalesRegistrationPage = (props) => {
   };
 
   const [numberOfToken, setNumberOfToken] = useState(0);
-  const [saleStartDate, setSaleStartDate] = useState("");
+
+  const dateNow = new Date();
+  const today = dateNow.toISOString().slice(0, 10);
+  const [saleStartDate, setSaleStartDate] = useState(today);
   const handleClickRegister = (event, id) => {
     alert(
       `분할 조각 개수 : ${numberOfToken}\n판매시작일 : ${saleStartDate}\nsave`
@@ -51,11 +54,11 @@ const SalesRegistrationPage = (props) => {
     // setProduct(product.filter((product) => product.id !== id));
     console.log("after", product);
   };
-  const handleClickNotRegister = (event, id) => {
+  const handleClickNotRegister = () => {
+    setNumberOfToken("");
     alert(`cancel`);
   };
-  const dateNow = new Date();
-  const today = dateNow.toISOString().slice(0, 10);
+
   // const passSaleStartDate = (saleDate) => {
   //   console.log("saleDate", saleDate);
   // };
@@ -118,10 +121,7 @@ const SalesRegistrationPage = (props) => {
               />
               <Divider />
               <AccordionActions>
-                <Button
-                  size="small"
-                  onClick={(event) => handleClickNotRegister(event, idx)}
-                >
+                <Button size="small" onClick={handleClickNotRegister}>
                   취소
                 </Button>
                 <Button
