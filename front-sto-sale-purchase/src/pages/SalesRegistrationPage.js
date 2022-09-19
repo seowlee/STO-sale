@@ -12,6 +12,28 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
+import NumberFormat from "react-number-format";
+
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      // isNumericString
+    />
+  );
+}
 
 const SalesRegistrationPage = (props) => {
   const [isShownRegProducts, setIsShownRegProducts] = useState(false);
@@ -34,6 +56,8 @@ const SalesRegistrationPage = (props) => {
   const handleChangeAccordion = (panel) => (event, isExpanded) => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
+
+  const [unitPrice, setUnitPrice] = useState(0);
 
   const [numberOfToken, setNumberOfToken] = useState(0);
 
@@ -94,7 +118,24 @@ const SalesRegistrationPage = (props) => {
               </AccordionDetails>
               <TextField
                 id="outlined-number"
-                label="Number"
+                label="한 조각당 가격"
+                type="number"
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                  endAdornment: (
+                    <InputAdornment position="end">원</InputAdornment>
+                  ),
+                }}
+                onChange={(e) => {
+                  setUnitPrice(e.target.value);
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                id="outlined-number"
+                label="조각 수"
                 type="number"
                 InputProps={{
                   endAdornment: (
