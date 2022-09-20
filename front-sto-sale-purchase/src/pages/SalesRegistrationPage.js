@@ -12,13 +12,13 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
 
   return (
-    <NumberFormat
+    <NumericFormat
       {...other}
       getInputRef={inputRef}
       onValueChange={(values) => {
@@ -51,6 +51,30 @@ const SalesRegistrationPage = (props) => {
     });
   }, []);
 
+  // const [saleProduct, setSaleProduct] = useState([...product]);
+  const [saleProduct, setSaleProduct] = useState([
+    {
+      unit_price: 0,
+      number_token: 0,
+      sale_date: "",
+      id: "",
+    },
+  ]);
+
+  // useEffect(() => {
+  //   setSaleProduct([{ ...saleProduct, nickName: "new Value" }]);
+  // }, []);
+  const addProductInfo = (index, pInfo) => {
+    // Create a copy using .map()
+    const temp = saleProduct.map((data, idx) => {
+      let tempData = { ...data }; // Copy object
+      if (idx === index) tempData.pInfo = pInfo; // Set new field
+      return tempData;
+    });
+    setSaleProduct(temp); // Save the copy to state
+  };
+  addProductInfo(0, "Football");
+
   const [expandedAccordion, setExpandedAccordion] = useState(false);
 
   const handleChangeAccordion = (panel) => (event, isExpanded) => {
@@ -59,14 +83,14 @@ const SalesRegistrationPage = (props) => {
 
   const [unitPrice, setUnitPrice] = useState(0);
 
-  const [numberOfToken, setNumberOfToken] = useState(0);
+  const [numberOfToken, setNumberOfToken] = useState(100);
 
   const dateNow = new Date();
   const today = dateNow.toISOString().slice(0, 10);
   const [saleStartDate, setSaleStartDate] = useState(today);
   const handleClickRegister = (event, id) => {
     alert(
-      `분할 조각 개수 : ${numberOfToken}\n판매시작일 : ${saleStartDate}\nsave`
+      `한 조각 당 가격 : ${unitPrice}\n분할 조각 개수 : ${numberOfToken}\n판매시작일 : ${saleStartDate}\nsave`
     );
     axios
       .get("/product/insert", {
@@ -95,9 +119,9 @@ const SalesRegistrationPage = (props) => {
       </Button>
       {isShownRegProducts && (
         <div>
-          {product.map((v, idx) => (
+          {product.map((productData, idx) => (
             <Accordion
-              key={v.id}
+              key={productData.id}
               expanded={expandedAccordion === `panel_${idx}`}
               onChange={handleChangeAccordion(`panel_${idx}`)}
             >
@@ -107,19 +131,18 @@ const SalesRegistrationPage = (props) => {
                 id="panel1a-header"
               >
                 <Stack spacing={2}>
-                  <div>id : {v.id}</div>
+                  <div>id : {productData.id}</div>
                 </Stack>
               </AccordionSummary>
               <AccordionDetails>
                 <div>
-                  name : {v.name}, password : {v.password}
+                  name : {productData.name}, password : {productData.password}
                 </div>
                 <br />
               </AccordionDetails>
               <TextField
-                id="outlined-number"
+                id="formatted-numberformat-input"
                 label="한 조각당 가격"
-                type="number"
                 InputProps={{
                   inputComponent: NumberFormatCustom,
                   endAdornment: (
@@ -127,7 +150,7 @@ const SalesRegistrationPage = (props) => {
                   ),
                 }}
                 onChange={(e) => {
-                  setUnitPrice(e.target.value);
+                  setUnitPrice(parseInt(e.target.value));
                 }}
                 InputLabelProps={{
                   shrink: true,
@@ -137,13 +160,14 @@ const SalesRegistrationPage = (props) => {
                 id="outlined-number"
                 label="조각 수"
                 type="number"
+                value={numberOfToken}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">조각</InputAdornment>
                   ),
                 }}
                 onChange={(e) => {
-                  setNumberOfToken(e.target.value);
+                  setNumberOfToken(parseInt(e.target.value));
                 }}
                 InputLabelProps={{
                   shrink: true,
@@ -162,7 +186,10 @@ const SalesRegistrationPage = (props) => {
               />
               <Divider />
               <AccordionActions>
-                <Button size="small" onClick={handleClickNotRegister}>
+                <Button
+                  size="small"
+                  onClick={(event) => handleClickNotRegister(event, idx)}
+                >
                   취소
                 </Button>
                 <Button
