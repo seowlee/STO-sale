@@ -2,20 +2,28 @@ package com.sto.salepurchase.backstosalepurchase.controller;
 
 import com.sto.salepurchase.backstosalepurchase.domain.Product;
 import com.sto.salepurchase.backstosalepurchase.repository.ProductRepository;
+import com.sto.salepurchase.backstosalepurchase.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
-public class ProductAPIController {
+public class ProductController {
+
+    private ProductService productService;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @RequestMapping(value = "product/select", method = {RequestMethod.GET, RequestMethod.POST})
-    public List<Product> selectAll() {
-        return productRepository.findAll();
+    public List<Product> getProduct() {
+        List<Product> products = productService.findProducts();
+        return products;
     }
 
     // fixxxx
