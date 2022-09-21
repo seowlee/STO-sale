@@ -51,10 +51,10 @@ function App() {
       </header> */}
       <BrowserRouter>
         <Routes>
-          <Route
+          {/* <Route
             path="/salesRegistration"
             element={<SalesRegistrationPage />}
-          ></Route>
+          ></Route> */}
           <Route
             path="/listProductsSale"
             element={<ListProductsSalePage />}

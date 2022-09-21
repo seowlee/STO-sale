@@ -20,12 +20,12 @@ const Navigation = () => {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction
+        {/* <BottomNavigationAction
           component={Link}
           to="/salesRegistration"
           label="판매하기"
           icon={<PublishIcon />}
-        />
+        /> */}
         <BottomNavigationAction
           component={Link}
           to="/listProductsSale"
