@@ -5,7 +5,7 @@ import NavigationBar from "./components/NavigationBar";
 // import SalesRegistrationPage from "./pages/SalesRegistrationPage";
 import ListProductsSalePage from "./pages/ListProductsSalePage";
 import MyPage from "./pages/MyPage";
-import PurchasePage from "./pages/PurchasePage";
+import OrderPage from "./pages/OrderPage";
 
 function App() {
   // const [message, setMessage] = useState([]);
@@ -60,7 +60,7 @@ function App() {
             element={<ListProductsSalePage />}
           ></Route>
           <Route path="/myPage" element={<MyPage />}></Route>
-          <Route path="/purchase" element={<PurchasePage />}></Route>
+          <Route path="/order/:goods_id" element={<OrderPage />}></Route>
         </Routes>
         <NavigationBar />
       </BrowserRouter>

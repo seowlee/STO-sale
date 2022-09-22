@@ -9,14 +9,14 @@ import {
   Button,
   Typography,
   Grid,
-  Paper,
-  styled,
 } from "@mui/material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ListProductsSalePage = () => {
   const [product, setProduct] = useState([]);
+  const { goods_id } = useParams();
+
   // const [progress, setProgress] = React.useState(10.0);
   // console.log("mem", product);
   useEffect(() => {
@@ -28,8 +28,8 @@ const ListProductsSalePage = () => {
 
   const navigate = useNavigate();
 
-  const navigateToPurchase = () => {
-    navigate("/purchase");
+  const navigateToOrder = () => {
+    navigate("/order", { state: product });
   };
 
   return (
@@ -69,7 +69,7 @@ const ListProductsSalePage = () => {
           </CardContent>
           <Divider />
           <CardActions>
-            <Button size="large" onClick={navigateToPurchase}>
+            <Button size="large" onClick={navigateToOrder}>
               구매하기
             </Button>
           </CardActions>
