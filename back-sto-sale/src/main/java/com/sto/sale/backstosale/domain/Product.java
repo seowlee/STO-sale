@@ -1,4 +1,4 @@
-package com.sto.salepurchase.backstosalepurchase.domain;
+package com.sto.sale.backstosale.domain;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;

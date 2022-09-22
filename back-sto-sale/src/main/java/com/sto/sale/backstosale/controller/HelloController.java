@@ -1,4 +1,4 @@
-package com.sto.salepurchase.backstosalepurchase.controller;
+package com.sto.sale.backstosale.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

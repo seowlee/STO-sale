@@ -1,4 +1,4 @@
-package com.sto.salepurchase.backstosalepurchase;
+package com.sto.sale.backstosale;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

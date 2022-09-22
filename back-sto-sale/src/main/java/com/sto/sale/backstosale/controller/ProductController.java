@@ -1,10 +1,8 @@
-package com.sto.salepurchase.backstosalepurchase.controller;
+package com.sto.sale.backstosale.controller;
 
-import com.sto.salepurchase.backstosalepurchase.domain.Product;
-import com.sto.salepurchase.backstosalepurchase.repository.ProductRepository;
-import com.sto.salepurchase.backstosalepurchase.service.ProductService;
+import com.sto.sale.backstosale.domain.Product;
+import com.sto.sale.backstosale.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;

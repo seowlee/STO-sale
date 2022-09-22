@@ -1,7 +1,7 @@
-package com.sto.salepurchase.backstosalepurchase.config;
+package com.sto.sale.backstosale.config;
 
-import com.sto.salepurchase.backstosalepurchase.repository.ProductRepository;
-import com.sto.salepurchase.backstosalepurchase.service.ProductService;
+import com.sto.sale.backstosale.repository.ProductRepository;
+import com.sto.sale.backstosale.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

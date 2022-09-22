@@ -1,9 +1,7 @@
-package com.sto.salepurchase.backstosalepurchase.service;
+package com.sto.sale.backstosale.service;
 
-import com.sto.salepurchase.backstosalepurchase.domain.Product;
-import com.sto.salepurchase.backstosalepurchase.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.sto.sale.backstosale.domain.Product;
+import com.sto.sale.backstosale.repository.ProductRepository;
 
 import java.util.List;
 
