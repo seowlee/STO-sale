@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
-const OrderPage = (props) => {
+const OrderPage = ({ history, location, match }) => {
   const { goods_id } = useParams();
 
   return (

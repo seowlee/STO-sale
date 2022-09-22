@@ -11,11 +11,10 @@ import {
   Grid,
 } from "@mui/material";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-const ListProductsSalePage = () => {
+const ListProductsSalePage = (props) => {
   const [product, setProduct] = useState([]);
-  const { goods_id } = useParams();
 
   // const [progress, setProgress] = React.useState(10.0);
   // console.log("mem", product);
@@ -69,9 +68,12 @@ const ListProductsSalePage = () => {
           </CardContent>
           <Divider />
           <CardActions>
-            <Button size="large" onClick={navigateToOrder}>
+            <Link to={`/order/${productData.goods_id}`}>
+              {productData.goods_nm}
+            </Link>
+            {/* <Button size="large" onClick={navigateToOrder}>
               구매하기
-            </Button>
+            </Button> */}
           </CardActions>
         </Card>
       ))}
