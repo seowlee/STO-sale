@@ -8,12 +8,16 @@ import {
   Divider,
   Button,
   Typography,
+  Grid,
+  Paper,
+  styled,
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const ListProductsSalePage = () => {
   const [product, setProduct] = useState([]);
+  // const [progress, setProgress] = React.useState(10.0);
   // console.log("mem", product);
   useEffect(() => {
     axios.get("/product/select").then((res) => {
@@ -29,34 +33,48 @@ const ListProductsSalePage = () => {
   };
 
   return (
-    <div>
-      <br />
-      <Card sx={{ minWidth: 275 }}>
-        <CardContent>
-          <Typography variant="h5" component="div">
-            benevolent
-          </Typography>
-          <Typography variant="body2">
-            well meaning and kindly.
+    <div style={{ marginBottom: 150 }}>
+      {product.map((productData, idx) => (
+        <Card key={idx} sx={{ minWidth: 275 }} variant="outlined">
+          <CardContent>
+            <Typography variant="h5" component="div">
+              id: {productData.goods_id}, name : {productData.goods_nm}
+            </Typography>
+            <Typography variant="body2">
+              stat : {productData.stat}
+              <br />
+              total_amt : {productData.total_amt}
+              <br />
+              sale_amt : {productData.sale_amt}
+              <br />
+              order_fee : {productData.ordr_fee}
+              <br />
+              created_dt : {productData.created_dt}
+              <br />
+              created_by : {productData.created_by}
+            </Typography>
             <br />
-            {'"a benevolent smile"'}
-          </Typography>
-          <ProgressBar />
-        </CardContent>
-        <Divider />
-        <CardActions>
-          <Button size="large" onClick={navigateToPurchase}>
-            구매하기
-          </Button>
-        </CardActions>
-      </Card>
-      <ul>
-        {product.map((v, idx) => (
-          <li key={`${idx}-${v}`}>
-            id: {v.goods_id}, name : {v.goods_nm}, stat : {v.stat}
-          </li>
-        ))}
-      </ul>
+            <br />
+            <Grid container spacing={2}>
+              <Grid item={true} xs={3}>
+                <Typography variant="body2">판매율 :</Typography>
+              </Grid>
+              <Grid item={true} xs={9}>
+                {/* <ProgressBar /> */}
+                <Box sx={{ width: "100%" }}>
+                  <ProgressBar value={productData.sales_rate} />
+                </Box>
+              </Grid>
+            </Grid>
+          </CardContent>
+          <Divider />
+          <CardActions>
+            <Button size="large" onClick={navigateToPurchase}>
+              구매하기
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
     </div>
   );
 };

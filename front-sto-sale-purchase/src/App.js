@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
-import SalesRegistrationPage from "./pages/SalesRegistrationPage";
+// import SalesRegistrationPage from "./pages/SalesRegistrationPage";
 import ListProductsSalePage from "./pages/ListProductsSalePage";
 import MyPage from "./pages/MyPage";
 import PurchasePage from "./pages/PurchasePage";

@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, LinearProgress, Typography } from "@mui/material";
 
-function LinearProgressWithLabel(props) {
+export default function LinearProgressWithLabel(props) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
         <LinearProgress variant="determinate" {...props} />
       </Box>
       <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.value
-        )}%`}</Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+        >{`${props.value}%`}</Typography>
       </Box>
     </Box>
   );
@@ -25,12 +26,12 @@ LinearProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function LinearWithValueLabel() {
-  const [progress, setProgress] = React.useState(10);
+// export default function LinearWithValueLabel() {
+//   const [progress, setProgress] = React.useState(10);
 
-  return (
-    <Box sx={{ width: "100%" }}>
-      <LinearProgressWithLabel value={progress} />
-    </Box>
-  );
-}
+//   return (
+//     <Box sx={{ width: "100%" }}>
+//       <LinearProgressWithLabel value={progress} />
+//     </Box>
+//   );
+// }
