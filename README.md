@@ -1,1 +1,1 @@
-# STO-sale-purchase
+# STO-sale
