@@ -28,7 +28,7 @@ const Navigation = () => {
         /> */}
         <BottomNavigationAction
           component={Link}
-          to="/listProductsSale"
+          to="/listOnSale"
           label="판매상품목록"
           icon={<StoreIcon />}
         />

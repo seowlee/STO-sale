@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import NavigationBar from "./components/NavigationBar";
 // import SalesRegistrationPage from "./pages/SalesRegistrationPage";
 import ListProductsSalePage from "./pages/ListProductsSalePage";
@@ -50,19 +51,16 @@ function App() {
         </ul>
       </header> */}
       <BrowserRouter>
+        <ResponsiveAppBar />
         <Routes>
           {/* <Route
             path="/salesRegistration"
             element={<SalesRegistrationPage />}
           ></Route> */}
-          <Route
-            path="/listProductsSale"
-            element={<ListProductsSalePage />}
-          ></Route>
+          <Route path="/listOnSale" element={<ListProductsSalePage />}></Route>
           <Route path="/myPage" element={<MyPage />}></Route>
           <Route path="/order/:goods_id" element={<OrderPage />}></Route>
         </Routes>
-        <NavigationBar />
       </BrowserRouter>
     </div>
   );
