@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import ProgressBar from "../components/ProgressBar";
 import {
   Box,
@@ -13,7 +13,8 @@ import {
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-const ListProductsSalePage = (props) => {
+// export const DetailProductContext = createContext();
+const ListProductsSalePage = () => {
   const [product, setProduct] = useState([]);
 
   // const [progress, setProgress] = React.useState(10.0);
@@ -25,11 +26,11 @@ const ListProductsSalePage = (props) => {
     });
   }, []);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const navigateToOrder = () => {
-    navigate("/order", { state: product });
-  };
+  // const navigateToOrder = () => {
+  //   navigate("/order", { state: product });
+  // };
 
   return (
     <div style={{ marginBottom: 150 }}>
@@ -68,9 +69,7 @@ const ListProductsSalePage = (props) => {
           </CardContent>
           <Divider />
           <CardActions>
-            <Link to={`/order/${productData.goods_id}`}>
-              {productData.goods_nm}
-            </Link>
+            <Link to={`/order/${productData.goods_id}`}>구매하기</Link>
             {/* <Button size="large" onClick={navigateToOrder}>
               구매하기
             </Button> */}
