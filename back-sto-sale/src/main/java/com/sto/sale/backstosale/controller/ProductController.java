@@ -3,6 +3,8 @@ package com.sto.sale.backstosale.controller;
 import com.sto.sale.backstosale.domain.Product;
 import com.sto.sale.backstosale.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -22,6 +24,15 @@ public class ProductController {
     public List<Product> getProduct() {
         List<Product> products = productService.findProducts();
         return products;
+    }
+
+    //    @GetMapping("order/{id}")
+//    public
+    @CrossOrigin
+    @GetMapping("/order/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.한건가져오기(id), HttpStatus.OK); // 200 응답
+        // httpstatus 코드를 같이 보내기 위해 ResponseEntity 사용
     }
 
     // fixxxx
