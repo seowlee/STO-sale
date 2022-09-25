@@ -20,7 +20,7 @@ const ListProductsSalePage = () => {
   // const [progress, setProgress] = React.useState(10.0);
   // console.log("mem", product);
   useEffect(() => {
-    axios.get("/product/select").then((res) => {
+    axios.get("/product/on-sale").then((res) => {
       setProduct(res.data);
       console.log("test", res);
     });

@@ -9,16 +9,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringConfig {
 
-    private final ProductRepository productRepository;
+	private final ProductRepository productRepository;
 
-    @Autowired
-    public SpringConfig(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+	@Autowired
+	public SpringConfig(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
 
-    @Bean
-    public ProductService productService() {
-        return new ProductService(productRepository);
-    }
+	@Bean
+	public ProductService productService() {
+		return new ProductService(productRepository);
+	}
 
 }
