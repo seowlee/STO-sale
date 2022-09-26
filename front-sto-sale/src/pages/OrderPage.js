@@ -42,8 +42,12 @@ const OrderPage = () => {
   return (
     <div>
       <div>{goods_id} 페이지</div>
-      <h1>{detailProduct.goods_nm}</h1>
-      <h1>{detailProduct.total_amt}</h1>
+      <h1>goods_nm : {detailProduct.goods_nm}</h1>
+      <h1>total_amt : {detailProduct.total_amt}</h1>
+      <h1>sale_amt : {detailProduct.sale_amt}</h1>
+      <h1>ordr_fee : {detailProduct.ordr_fee}</h1>
+      <h1>created_dt : {detailProduct.created_dt}</h1>
+      <h1>created_by : {detailProduct.created_by}</h1>
     </div>
   );
 };
