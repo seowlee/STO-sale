@@ -31,7 +31,7 @@ const ListProductsSalePage = () => {
       .get("/product/on-sale")
       .then((res) => {
         setProducts(res.data);
-        console.log("test", res);
+        // console.log("test", res);
       })
       .catch((error) => {
         console.log("error", error);
