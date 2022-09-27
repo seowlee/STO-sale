@@ -12,24 +12,25 @@ import java.util.Optional;
 @RestController
 public class ProductController {
 
-	private ProductService productService;
+    private ProductService productService;
 
-	@Autowired
-	public ProductController(ProductService productService) {
-		this.productService = productService;
-	}
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
-	@RequestMapping(value = "product/all", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<Product> getAllProducts() {
-		List<Product> products = productService.findAllProducts();
-		return products;
-	}
+    @RequestMapping(value = "product/all", method = {RequestMethod.GET, RequestMethod.POST})
+    public List<Product> getAllProducts() {
+        List<Product> products = productService.findAllProducts();
 
-	@RequestMapping(value = "product/on-sale", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<Product> getOnSaleProducts() {
-		List<Product> products = productService.findOnSaleProducts();
-		return products;
-	}
+        return products;
+    }
+
+    @RequestMapping(value = "product/on-sale", method = {RequestMethod.GET, RequestMethod.POST})
+    public List<Product> getOnSaleProducts() {
+        List<Product> products = productService.findOnSaleProducts();
+        return products;
+    }
 
 //	@CrossOrigin
 //	@GetMapping("/order/{id}")
@@ -38,24 +39,30 @@ public class ProductController {
 //		// httpstatus 코드를 같이 보내기 위해 ResponseEntity 사용
 //	}
 
-	@GetMapping("/order/{id}")
-	public Optional<Product> getOne(@PathVariable Long id) {
-		Optional<Product> optionalProduct = Optional.ofNullable(productService.findOne(id));
-		return optionalProduct;
-	}
+    @GetMapping("/order/{id}")
+    public Optional<Product> getOne(@PathVariable Long id) {
+        Optional<Product> optionalProduct = Optional.ofNullable(productService.findOne(id));
+        return optionalProduct;
+    }
 
-	// fixxxx
-	@GetMapping("/product/insert")
-	public List<Integer> numOfTokenInsert(@RequestParam Integer numberOfToken) {
-		System.out.println("numOfToken : " + numberOfToken);
+//    @GetMapping("/join")
+//    public List<ProductDto> getJoin() {
+//        List<ProductDto> joinProduct = productService.findJoin();
+//        return joinProduct;
+//    }
+
+    // fixxxx
+    @GetMapping("/product/insert")
+    public List<Integer> numOfTokenInsert(@RequestParam Integer numberOfToken) {
+        System.out.println("numOfToken : " + numberOfToken);
 //		System.out.println(numberOfToken.getClass().getName());
-		return Arrays.asList(numberOfToken);
-	}
+        return Arrays.asList(numberOfToken);
+    }
 
-	@GetMapping("test")
-	public List<Integer> Test() {
-		int num = 33;
-		System.out.println(((Object) num).getClass().getName());
-		return Arrays.asList(8080, 3000);
-	}
+    @GetMapping("test")
+    public List<Integer> Test() {
+        int num = 33;
+        System.out.println(((Object) num).getClass().getName());
+        return Arrays.asList(8080, 3000);
+    }
 }

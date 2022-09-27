@@ -1,30 +1,20 @@
-package com.sto.sale.backstosale.domain;
+package com.sto.sale.backstosale.dto;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
-@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "goods")
-@Entity
-public class Product {
-    @Id
-    private Long goods_id;
-    @NotNull
-    private String goods_nm;
+@Data
+public class ProductDto {
 
-    @NotNull
+    private Long goods_id;
+    private String goods_nm;
     private Integer stat;
     private Integer total_amt;
     private Integer sale_amt;
@@ -37,13 +27,9 @@ public class Product {
     private Timestamp created_dt;
     private Timestamp updated_dt;
 
-    @Size(max = 20)
     private String created_by;
-    @Size(max = 20)
     private String updated_by;
-    private Double sales_rate;
-//
-//    @OneToOne(mappedBy = "product")
-//    private Sale sale;
 
+    private Integer sale_cnt;
+    private Double sales_rate;
 }
