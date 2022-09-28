@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-	@Query("select p from Product p where p.stat = 0 ")
-	List<Product> findByOnSaleProducts();
+    @Query("select p from Product p where p.stat = 0 ")
+    List<Product> findByOnSaleProducts();
 
 
-	@Query("select new com.sto.sale.backstosale.dto.ProductDto(p.goods_id, s.sale_cnt)"
-			+ "from Product p join p.sale s")
-	List<ProductDto> findByJoin();
+    @Query("select new com.sto.sale.backstosale.dto.ProductDto(p.goods_id, p.goods_nm, p.stat, p.total_cnt, p.ordr_fee, p.trade_fee, p.created_dt, p.created_by, s.sale_cnt, s.sale_rate)"
+            + "from Product p join p.sale s")
+    List<ProductDto> findByJoin();
 
 }
