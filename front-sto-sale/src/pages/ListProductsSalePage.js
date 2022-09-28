@@ -28,7 +28,7 @@ const ListProductsSalePage = () => {
   // console.log("mem", products);
   useEffect(() => {
     axios
-      .get("/product/on-sale")
+      .get("/product-sale-join")
       .then((res) => {
         setProducts(res.data);
         // console.log("test", res);
@@ -64,11 +64,17 @@ const ListProductsSalePage = () => {
               <Typography variant="body2">
                 stat : {productData.stat}
                 <br />
-                total_amt : {productData.total_amt}
-                <br />
-                sale_amt : {productData.sale_amt}
+                total_amt : {productData.total_cnt}
                 <br />
                 order_fee : {productData.ordr_fee}
+                <br />
+                trade_fee : {productData.trade_fee}
+                <br />
+                created_dt : {productData.created_dt}
+                <br />
+                created_by : {productData.created_by}
+                <br />
+                sale_cnt : {productData.sale_cnt}
               </Typography>
               <br />
               <br />
@@ -79,7 +85,7 @@ const ListProductsSalePage = () => {
                 <Grid item={true} xs={9}>
                   {/* <ProgressBar /> */}
                   <Box sx={{ width: "100%" }}>
-                    <ProgressBar value={productData.sales_rate} />
+                    <ProgressBar value={productData.sale_rate} />
                   </Box>
                 </Grid>
               </Grid>
