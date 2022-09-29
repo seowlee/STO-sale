@@ -27,11 +27,11 @@ public class ProductController {
         return products;
     }
 
-    @RequestMapping(value = "product/on-sale", method = {RequestMethod.GET, RequestMethod.POST})
-    public List<Product> getOnSaleProducts() {
-        List<Product> products = productService.findOnSaleProducts();
-        return products;
-    }
+//    @RequestMapping(value = "product/on-sale", method = {RequestMethod.GET, RequestMethod.POST})
+//    public List<Product> getOnSaleProducts() {
+//        List<Product> products = productService.findOnSaleProducts();
+//        return products;
+//    }
 
 //	@CrossOrigin
 //	@GetMapping("/order/{id}")
@@ -40,17 +40,21 @@ public class ProductController {
 //		// httpstatus 코드를 같이 보내기 위해 ResponseEntity 사용
 //	}
 
-    @GetMapping("/order/{id}")
-    public Optional<Product> getOne(@PathVariable Long id) {
-        Optional<Product> optionalProduct = Optional.ofNullable(productService.findOne(id));
+    /**
+     * 판매 상품 목록 조회 (Product join Sale)
+     */
+    @GetMapping("/product/on-sale")
+    public List<ProductDto> getJoin() {
+        List<ProductDto> joinProduct = productService.findOnSaleProducts();
+        return joinProduct;
+    }
+
+    @GetMapping("/product/order/{id}")
+    public Optional<ProductDto> getOne(@PathVariable Long id) {
+        Optional<ProductDto> optionalProduct = Optional.ofNullable(productService.findProductId(id));
         return optionalProduct;
     }
 
-    @GetMapping("/product-sale-join")
-    public List<ProductDto> getJoin() {
-        List<ProductDto> joinProduct = productService.findJoin();
-        return joinProduct;
-    }
 
     // fixxxx
     @GetMapping("/product/insert")
