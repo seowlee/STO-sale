@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Builder
@@ -33,16 +33,17 @@ public class Product {
     private Double trade_fee;
     private Double sale_fee;
 
-    // java.sql
-    private Timestamp created_dt;
-    private Timestamp updated_dt;
+    // java.sql (x)
+    // sql timestamp to java.utill Date
+    private Date created_dt;
+    private Date updated_dt;
 //    private Date created_date = new Date(created_dt.getTime());
 
     @Size(max = 20)
     private String created_by;
     @Size(max = 20)
     private String updated_by;
-    private Double sales_rate;
+    private Double sale_rate;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore

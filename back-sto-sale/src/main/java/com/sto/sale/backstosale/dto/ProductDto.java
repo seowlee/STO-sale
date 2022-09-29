@@ -16,8 +16,8 @@ public class ProductDto {
     private Long goods_id;
     private String goods_nm;
     private Integer stat;
-    //    private Integer total_amt;
-//    private Integer sale_amt;
+    private Integer total_amt;
+    //    private Integer sale_amt;
     private Integer total_cnt;
     private Double ordr_fee;
     private Double trade_fee;
@@ -32,4 +32,16 @@ public class ProductDto {
 
     private Integer sale_cnt;
     private Double sale_rate;
+
+//    //    @Builder
+//    public ProductDto(String goods_nm, Integer stat, Integer total_amt, Double sale_rate) {
+//
+//        this.goods_nm = goods_nm;
+//        this.stat = stat;
+//        this.total_amt = total_amt;
+//        this.sale_rate = sale_rate;
+//    }
+//
+//    public ProductDto(Product entity) {
+//    }
 }
