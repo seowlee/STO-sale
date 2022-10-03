@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import ProgressBar from "../components/ProgressBar";
 import {
   Box,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import Paging from "../components/Paging";
+// import Paging from "../components/Paging";
 
 // export const DetailProductContext = createContext();
 const ListProductsSalePage = () => {
