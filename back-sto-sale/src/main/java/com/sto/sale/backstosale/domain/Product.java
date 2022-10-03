@@ -28,8 +28,9 @@ public class Product {
 	private Integer stat;
 	private Integer total_amt;
 	private Integer sale_amt;
+	private Integer unit_amt;
 	private Integer total_cnt;
-	private Double ordr_fee;
+	private Double order_fee;
 	private Double trade_fee;
 	private Double sale_fee;
 

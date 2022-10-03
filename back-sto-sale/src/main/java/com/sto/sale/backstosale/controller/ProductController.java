@@ -6,7 +6,6 @@ import com.sto.sale.backstosale.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -60,12 +59,12 @@ public class ProductController {
 
 
 	// fixxxx
-	@GetMapping("/product/insert")
-	public List<Integer> numOfTokenInsert(@RequestParam Integer numberOfToken) {
-		System.out.println("numOfToken : " + numberOfToken);
-//		System.out.println(numberOfToken.getClass().getName());
-		return Arrays.asList(numberOfToken);
-	}
+//	@GetMapping("/product/insert")
+//	public List<Integer> numOfTokenInsert(@RequestParam Integer numberOfToken) {
+//		System.out.println("numOfToken : " + numberOfToken);
+////		System.out.println(numberOfToken.getClass().getName());
+//		return Arrays.asList(numberOfToken);
+//	}
 
 	@GetMapping("test")
 	public List<Integer> Test() {
