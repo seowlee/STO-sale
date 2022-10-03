@@ -95,7 +95,7 @@ const ResponsiveAppBar = () => {
                 <MenuItem key={idx} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     <Link
-                      style={{ textDecoration: "none", color: "white" }}
+                      style={{ textDecoration: "none", color: "black" }}
                       to={`/${page.page_url}`}
                     >
                       {page.tab_name}
@@ -110,7 +110,7 @@ const ResponsiveAppBar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
