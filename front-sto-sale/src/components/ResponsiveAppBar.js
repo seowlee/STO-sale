@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
-
+import { yellow } from "@mui/material/colors";
 const pages = [
   { page_url: "listOnSale", tab_name: "판매상품목록" },
   { page_url: "myPage", tab_name: "마이페이지" },
@@ -144,7 +144,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar sx={{ bgcolor: yellow[700] }}>U</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
