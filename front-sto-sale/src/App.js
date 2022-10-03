@@ -7,6 +7,7 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import ListProductsSalePage from "./pages/ListProductsSalePage";
 import MyPage from "./pages/MyPage";
 import OrderPage from "./pages/OrderPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
   // const [message, setMessage] = useState([]);
@@ -57,6 +58,7 @@ function App() {
             path="/salesRegistration"
             element={<SalesRegistrationPage />}
           ></Route> */}
+          <Route path="/" element={<HomePage />}></Route>
           <Route path="/listOnSale" element={<ListProductsSalePage />}></Route>
           <Route path="/myPage" element={<MyPage />}></Route>
           <Route path="/order/:goods_id" element={<OrderPage />}></Route>
