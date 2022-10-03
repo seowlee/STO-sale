@@ -12,6 +12,11 @@ import {
   FormControl,
   Select,
   Grid,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 // import { DetailProductContext } from "./ListProductsSalePage";
 
@@ -22,6 +27,7 @@ const OrderPage = () => {
   const [userIds, setUserIds] = useState([]);
   const [purchaseQuantity, setPurchaseQuantity] = useState("");
   const [user, setUser] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -42,17 +48,13 @@ const OrderPage = () => {
     setUser(event.target.value);
   };
 
-  const totalPurchasePrice = purchaseQuantity * 2;
+  const totalPurchasePrice = purchaseQuantity * detailProduct.unit_amt;
 
   const handleClickPurchase = (event, id) => {
-    alert(
-      // `한 조각 당 가격 : ${unitPrice}\n
-      `
-      user id : ${user}\n
-      구매 수량 : ${purchaseQuantity}\n
-      총 구매 가격 : ${totalPurchasePrice}\n
-      save`
-    );
+    setOpen(true);
+
+    //   // `한 조각 당 가격 : ${unitPrice}\n
+
     // axios
     //   .get("/product/insert", {
     //     params: { purchaseQuantity: purchaseQuantity },
@@ -60,6 +62,31 @@ const OrderPage = () => {
     //   .catch(function () {
     //     console.log("실패");
     //   });
+  };
+
+  const handleCloseCancel = () => {
+    setUser("");
+    setPurchaseQuantity("");
+    setOpen(false);
+  };
+
+  const handleCloseCheck = () => {
+    axios({
+      method: "POST",
+      url: "/holding/add",
+      data: {
+        user_id: user,
+        goods_id: goods_id,
+        goods_cnt: purchaseQuantity,
+      },
+    })
+      .then((response) => {
+        console.log("hhh", response);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+    setOpen(false);
   };
 
   const availableQuantity = detailProduct.total_cnt - detailProduct.sale_cnt;
@@ -86,9 +113,10 @@ const OrderPage = () => {
           <h2>상품명 : {detailProduct.goods_nm}</h2>
           <h2>상품 상태 : {detailProduct.stat}</h2>
           <h2>전체 가격 : {detailProduct.total_amt}</h2>
+          <h2>단위 가격 : {detailProduct.unit_amt}</h2>
           <h2>전체 수량 : {detailProduct.total_cnt}</h2>
           <h2>구매 가능 수량 : {availableQuantity}</h2>
-          <h2>구매 수수료: {detailProduct.ordr_fee}</h2>
+          <h2>구매 수수료: {detailProduct.order_fee}</h2>
           <h2>거래 수수료: {detailProduct.trade_fee}</h2>
           <h2>생성일시 : {detailProduct.created_dt}</h2>
           <h2>생성자 : {detailProduct.created_by}</h2>
@@ -143,6 +171,29 @@ const OrderPage = () => {
       <Paper>
         <Button onClick={(event) => handleClickPurchase(event)}>구매</Button>
       </Paper>
+      <Dialog
+        fullWidth={true}
+        open={open}
+        onClose={handleCloseCancel}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"구매 내역"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            user id : {user} <br />
+            구매 수량 : {purchaseQuantity}
+            <br />총 구매 가격 : {totalPurchasePrice}
+            <br />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseCancel}>취소</Button>
+          <Button onClick={handleCloseCheck} autoFocus>
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
