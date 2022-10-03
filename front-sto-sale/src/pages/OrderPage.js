@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -19,28 +19,53 @@ const OrderPage = () => {
   const { goods_id } = useParams();
   // const { detailProduct } = useContext(DetailProductContext);
   const [detailProduct, setDetailProduct] = useState({});
-  const [purchaseQuantity, setPurchaseQuantity] = useState(0);
+  const [userIds, setUserIds] = useState([]);
+  const [purchaseQuantity, setPurchaseQuantity] = useState("");
   const [user, setUser] = useState("");
 
   useEffect(() => {
     axios
-      .get(`/product/order/${goods_id}`)
-      .then((res) => {
-        setDetailProduct(res.data);
-        // console.log("detailtest", res);
-      })
+      .all([axios.get(`/product/order/${goods_id}`), axios.get(`/user/ids`)])
+      .then(
+        axios.spread((res1, res2) => {
+          setDetailProduct(res1.data);
+          setUserIds(res2.data);
+          // console.log("detailtest", res);
+        })
+      )
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  }, [goods_id]);
+
   const handleChangeUser = (event) => {
     setUser(event.target.value);
   };
 
+  const totalPurchasePrice = purchaseQuantity * 2;
+
+  const handleClickPurchase = (event, id) => {
+    alert(
+      // `한 조각 당 가격 : ${unitPrice}\n
+      `
+      user id : ${user}\n
+      구매 수량 : ${purchaseQuantity}\n
+      총 구매 가격 : ${totalPurchasePrice}\n
+      save`
+    );
+    // axios
+    //   .get("/product/insert", {
+    //     params: { purchaseQuantity: purchaseQuantity },
+    //   })
+    //   .catch(function () {
+    //     console.log("실패");
+    //   });
+  };
+
   const availableQuantity = detailProduct.total_cnt - detailProduct.sale_cnt;
-  console.log("availableQuantity", typeof detailProduct.sale_cnt);
+  // console.log("Quantity", typeof purchaseQuantity);
   // console.log("param", goods_id);
-  // console.log("Success", detailProduct);
+  // console.log("Success", userIds);
 
   return (
     <div>
@@ -74,17 +99,22 @@ const OrderPage = () => {
         <Grid container spacing={2}>
           <Grid item={true} xs={6}>
             <FormControl sx={{ minWidth: 230 }}>
-              <InputLabel id="demo-simple-select-label">UserID</InputLabel>
+              <InputLabel id="user-id-select-label">UserID</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="user-id-select-label"
+                id="user-id-select"
                 value={user}
                 label="User"
                 onChange={handleChangeUser}
               >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
+                {userIds.map((userId, idx) => (
+                  <MenuItem key={idx} value={userId}>
+                    {userId}
+                  </MenuItem>
+                ))}
+                {/* <MenuItem value={1}>1</MenuItem>
+                 <MenuItem value={2}>2</MenuItem>
+                 <MenuItem value={3}>3</MenuItem> */}
               </Select>
             </FormControl>
           </Grid>
@@ -111,7 +141,7 @@ const OrderPage = () => {
         <br />
       </Paper>
       <Paper>
-        <Button>구매</Button>
+        <Button onClick={(event) => handleClickPurchase(event)}>구매</Button>
       </Paper>
     </div>
   );
