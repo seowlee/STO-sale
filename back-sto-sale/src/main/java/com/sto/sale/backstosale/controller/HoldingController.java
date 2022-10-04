@@ -1,6 +1,8 @@
 package com.sto.sale.backstosale.controller;
 
+import com.sto.sale.backstosale.converter.HoldingConverter;
 import com.sto.sale.backstosale.domain.Holding;
+import com.sto.sale.backstosale.dto.HoldingDto;
 import com.sto.sale.backstosale.service.HoldingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,9 @@ public class HoldingController {
     public HoldingController(HoldingService holdingService) {
         this.holdingService = holdingService;
     }
+
+    @Autowired
+    private HoldingConverter holdingConverter;
 
     @GetMapping("/holding/all")
     public List<Holding> getAllHoldings() {
@@ -41,13 +46,13 @@ public class HoldingController {
 //        return rtnArray;
 //    }
     @PostMapping("/holding/add")
-    public Holding createHoldingData(@RequestBody Holding holding) {
+    public HoldingDto createHoldingData(@RequestBody HoldingDto holdingDto) {
         System.out.println("통신 성공");
-        System.out.println("user_id" + holding.getUser_id());
-        System.out.println("goods_id" + holding.getGoods_id());
-        System.out.println("goods_cnt" + holding.getGoods_cnt());
-        holdingService.addHoldingData(holding);
-        return holding;
+        System.out.println("user_id" + holdingDto.getUser_id());
+        System.out.println("goods_id" + holdingDto.getGoods_id());
+        System.out.println("goods_cnt" + holdingDto.getGoods_cnt());
+        holdingService.addHoldingData(holdingDto);
+        return holdingDto;
     }
 
 //    @PutMapping("holding/add")
