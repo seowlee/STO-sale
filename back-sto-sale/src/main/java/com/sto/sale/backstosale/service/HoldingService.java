@@ -6,33 +6,39 @@ import com.sto.sale.backstosale.repository.HoldingRepository;
 import java.util.List;
 
 public class HoldingService {
-	private HoldingRepository holdingRepository;
+    private HoldingRepository holdingRepository;
 
-	public HoldingService(HoldingRepository holdingRepository) {
-		this.holdingRepository = holdingRepository;
-	}
+    public HoldingService(HoldingRepository holdingRepository) {
+        this.holdingRepository = holdingRepository;
+    }
 
-	/**
-	 * 모든 보유 기록 조회
-	 */
-	public List<Holding> findAllHoldings() {
-		return holdingRepository.findAll();
-	}
+    /**
+     * 모든 보유 기록 조회
+     */
+    public List<Holding> findAllHoldings() {
+        return holdingRepository.findAll();
+    }
 
-	/**
-	 * 보유 데이터 추가, 업데이트
-	 */
-	public Holding addHoldingData(Holding holding) {
-		validateDuplicateUserIdGoodsId(holding);
-		holdingRepository.save(holding);
-		return holding;
-	}
+    /**
+     * 보유 데이터 추가, 업데이트
+     */
+    public Holding addHoldingData(Holding addedHolding) {
+        Holding holding = holdingRepository
+                .findByHoldingData(addedHolding.getUser_id(), addedHolding.getGoods_id());
+        if (holding != null) {
+            holding.update(addedHolding.getGoods_cnt());
+        } else {
+            holding = addedHolding;
+//            holding.builder()
+//                    .user_id(addedHolding.getUser_id())
+//                    .goods_id(addedHolding.getGoods_id())
+//                    .goods_cnt(addedHolding.getGoods_cnt())
+//                    .build();
+        }
+        holdingRepository.save(holding);
+        return holding;
+    }
 
-	private void validateDuplicateUserIdGoodsId(Holding holding) {
-		holdingRepository.findByHoldingData(holding.getUser_id(), holding.getGoods_id()).orElseGet(Holding::new);
 
-	}
-
-	
 }
 
