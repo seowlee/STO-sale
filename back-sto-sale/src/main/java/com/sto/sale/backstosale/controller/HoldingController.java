@@ -1,9 +1,7 @@
 package com.sto.sale.backstosale.controller;
 
-import com.sto.sale.backstosale.domain.Holding;
 import com.sto.sale.backstosale.dto.HoldingDto;
 import com.sto.sale.backstosale.service.HoldingService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,25 +13,20 @@ import java.util.List;
 @RestController
 public class HoldingController {
 
-	private HoldingService holdingService;
+    private HoldingService holdingService;
 
-	@Autowired
-	public HoldingController(HoldingService holdingService) {
-		this.holdingService = holdingService;
-	}
+    @Autowired
+    public HoldingController(HoldingService holdingService) {
+        this.holdingService = holdingService;
+    }
 
-	//    @Autowired
-//    private HoldingConverter holdingConverter;
-	@Autowired
-	ModelMapper modelMapper;
+    @GetMapping("/holding/all")
+    public List<HoldingDto> getAllHoldings() {
+        List<HoldingDto> holdings = holdingService.findAllHoldings();
+        return holdings;
+    }
 
-	@GetMapping("/holding/all")
-	public List<Holding> getAllHoldings() {
-		List<Holding> holdings = holdingService.findAllHoldings();
-		return holdings;
-	}
-
-	//    @PostMapping("/holding/add")
+    //    @PostMapping("/holding/add")
 //    public ArrayList<HashMap<String, Object>> addHoldingData(@RequestBody HashMap<String, Object> requestJsonHashMap) throws Exception {
 ////		Optional<Holding> holdingData = Optional.ofNullable(holdingService.findHoldingData(holding.getUser_id(), holding.getGoods_id()));
 //        ArrayList<HashMap<String, Object>> rtnArray = new ArrayList<HashMap<String, Object>>();
@@ -47,15 +40,15 @@ public class HoldingController {
 //        System.out.println(rtnArray.toString());
 //        return rtnArray;
 //    }
-	@PostMapping("/holding/add")
-	public HoldingDto createHoldingData(@RequestBody HoldingDto holdingDto) {
-		System.out.println("통신 성공");
-		System.out.println("user_id" + holdingDto.getUser_id());
-		System.out.println("goods_id" + holdingDto.getGoods_id());
-		System.out.println("goods_cnt" + holdingDto.getGoods_cnt());
-		holdingService.addHoldingData(holdingDto);
-		return holdingDto;
-	}
+    @PostMapping("/holding/add")
+    public HoldingDto createHoldingData(@RequestBody HoldingDto holdingDto) {
+        System.out.println("통신 성공");
+        System.out.println("user_id : " + holdingDto.getUserId());
+        System.out.println("goods_id : " + holdingDto.getGoodsId());
+        System.out.println("goods_cnt : " + holdingDto.getGoods_cnt());
+        holdingService.addHoldingData(holdingDto);
+        return holdingDto;
+    }
 
 //    @PutMapping("holding/add")
 //    public Holding updateHolding(@RequestBody Holding holding) {

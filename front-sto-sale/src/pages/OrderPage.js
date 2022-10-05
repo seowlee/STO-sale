@@ -75,8 +75,8 @@ const OrderPage = () => {
       method: "POST",
       url: "/holding/add",
       data: {
-        user_id: user,
-        goods_id: goods_id,
+        userId: user,
+        goodsId: goods_id,
         goods_cnt: purchaseQuantity,
       },
     })

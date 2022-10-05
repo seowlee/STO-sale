@@ -1,20 +1,31 @@
 package com.sto.sale.backstosale.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Builder
-@AllArgsConstructor
+
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
 @Data
 public class HoldingDto {
-	private Long holding_id;
-	private Long user_id;
-	private Long goods_id;
-	private Integer goods_cnt;
+    private Long holding_id;
+    private Long userId;
+    private Long goodsId;
+    private Integer goods_cnt;
 
-	public void update(Integer goods_cnt) {
-		this.goods_cnt += goods_cnt;
-	}
+    //    public void update(Long user_id, Long goods_id, Integer goods_cnt) {
+//        this.userId = user_id;
+//        this.goodsId = goods_id;
+//        this.goods_cnt += goods_cnt;
+//    }
+    public void update(Integer goods_cnt) {
+        this.goods_cnt += goods_cnt;
+    }
+
+    public void insert(Long user_id, Long goods_id, Integer goods_cnt) {
+        this.userId = user_id;
+        this.goodsId = goods_id;
+        this.goods_cnt = goods_cnt;
+    }
 }

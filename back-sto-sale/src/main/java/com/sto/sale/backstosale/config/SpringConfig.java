@@ -1,6 +1,5 @@
 package com.sto.sale.backstosale.config;
 
-import com.sto.sale.backstosale.converter.CustomModelMapper;
 import com.sto.sale.backstosale.repository.HoldingRepository;
 import com.sto.sale.backstosale.repository.ProductRepository;
 import com.sto.sale.backstosale.repository.SaleRepository;
@@ -17,44 +16,44 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringConfig {
 
-	private final ProductRepository productRepository;
-	private final SaleRepository saleRepository;
-	private final UserRepository userRepository;
-	private final HoldingRepository holdingRepository;
+    private final ProductRepository productRepository;
+    private final SaleRepository saleRepository;
+    private final UserRepository userRepository;
+    private final HoldingRepository holdingRepository;
 
-	@Autowired
-	public SpringConfig(ProductRepository productRepository, SaleRepository saleRepository, UserRepository userRepository, HoldingRepository holdingRepository) {
-		this.productRepository = productRepository;
-		this.saleRepository = saleRepository;
-		this.userRepository = userRepository;
-		this.holdingRepository = holdingRepository;
-	}
+    @Autowired
+    public SpringConfig(ProductRepository productRepository, SaleRepository saleRepository, UserRepository userRepository, HoldingRepository holdingRepository) {
+        this.productRepository = productRepository;
+        this.saleRepository = saleRepository;
+        this.userRepository = userRepository;
+        this.holdingRepository = holdingRepository;
+    }
 
-	@Bean
-	public ProductService productService() {
-		return new ProductService(productRepository);
-	}
+    @Bean
+    public ProductService productService() {
+        return new ProductService(productRepository);
+    }
 
-	@Bean
-	public SaleService saleService() {
-		return new SaleService(saleRepository);
-	}
+    @Bean
+    public SaleService saleService() {
+        return new SaleService(saleRepository);
+    }
 
-	@Bean
-	public UserService userService() {
-		return new UserService(userRepository);
-	}
+    @Bean
+    public UserService userService() {
+        return new UserService(userRepository);
+    }
 
-	@Bean
-	public HoldingService holdingService() {
-		return new HoldingService(holdingRepository);
-	}
+    @Bean
+    public HoldingService holdingService() {
+        return new HoldingService(holdingRepository);
+    }
 
-	@Bean
-	public ModelMapper modelMapper() {
-		ModelMapper modelMapper = new CustomModelMapper();
-		return modelMapper;
-	}
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper;
+    }
 
 //        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
