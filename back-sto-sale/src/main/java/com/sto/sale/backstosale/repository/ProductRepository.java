@@ -21,4 +21,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 			+ "from Product p join p.sale s where p.goods_id = :id")
 	ProductDto findByProductId(@Param("id") Long id);
 
+//	select g.goods_id, sum(h.goods_cnt), group_concat(h.user_id)
+//	from chloe.goods g
+//	join chloe.holding h
+//	on g.goods_id = h.goods_id
+//	group by h.goods_id
+
 }

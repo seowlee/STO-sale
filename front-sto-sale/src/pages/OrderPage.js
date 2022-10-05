@@ -71,18 +71,24 @@ const OrderPage = () => {
   };
 
   const handleCloseCheck = () => {
-    axios({
-      method: "POST",
-      url: "/holding/add",
-      data: {
-        userId: user,
-        goodsId: goods_id,
-        goods_cnt: purchaseQuantity,
-      },
-    })
-      .then((response) => {
-        console.log("hhh", response);
-      })
+    axios
+      .all([
+        axios.post(`/holding/add`, {
+          userId: user,
+          goodsId: goods_id,
+          goods_cnt: purchaseQuantity,
+        }),
+        axios.post(`/sale/update`, {
+          sale_goods_id: goods_id,
+          sale_cnt: purchaseQuantity,
+          sale_rate: 0.0,
+        }),
+      ])
+      .then(
+        axios.spread((response1, response2) => {
+          console.log("response1", response1, "response2", response2);
+        })
+      )
       .catch((error) => {
         console.log("error", error);
       });

@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SaleDto {
-    private Long sale_id;
-    private Long sale_goods_id;
-    private Integer sale_cnt;
-    private Double sale_rate;
-
+	private Long sale_goods_id;
+	private Integer sale_cnt;
+	private Double sale_rate;
 }

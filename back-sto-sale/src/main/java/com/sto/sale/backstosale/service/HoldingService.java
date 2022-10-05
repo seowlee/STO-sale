@@ -2,7 +2,6 @@ package com.sto.sale.backstosale.service;
 
 import com.sto.sale.backstosale.domain.Holding;
 import com.sto.sale.backstosale.dto.HoldingDto;
-import com.sto.sale.backstosale.dto.ListHoldingDto;
 import com.sto.sale.backstosale.repository.HoldingRepository;
 import com.sto.sale.backstosale.repository.ProductRepository;
 import com.sto.sale.backstosale.repository.UserRepository;
@@ -12,16 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class HoldingService {
-    private HoldingRepository holdingRepository;
-    private UserRepository userRepository;
-    private ProductRepository productRepository;
+	private HoldingRepository holdingRepository;
+	private UserRepository userRepository;
+	private ProductRepository productRepository;
 
-    public HoldingService(HoldingRepository holdingRepository) {
-        this.holdingRepository = holdingRepository;
-    }
+	public HoldingService(HoldingRepository holdingRepository) {
+		this.holdingRepository = holdingRepository;
+	}
 
-    @Autowired
-    ModelMapper modelMapper;
+	@Autowired
+	ModelMapper modelMapper;
 
 //    @Autowired
 //    public HoldingService(ModelMapper modelMapper) {
@@ -33,26 +32,26 @@ public class HoldingService {
 //	@Autowired
 //	HoldingConverter holdingConverter;
 
-    /**
-     * 모든 보유 기록 조회
-     */
-    public List<HoldingDto> findAllHoldings() {
-        return holdingRepository.findByAllHoldings();
-    }
+	/**
+	 * 모든 보유 기록 조회
+	 */
+	public List<HoldingDto> findAllHoldings() {
+		return holdingRepository.findByAllHoldings();
+	}
 
-    public List<ListHoldingDto> findListHolding() {
-        return holdingRepository.findByListHolding();
-    }
+//	public List<ListHoldingDto> findListHolding() {
+//		return holdingRepository.findByListHolding();
+//	}
 
 
-    /**
-     * 보유 데이터 추가, 업데이트
-     */
-    public HoldingDto addHoldingData(HoldingDto addedHoldingDto) {
-        HoldingDto holdingDto = holdingRepository
-                .findByHoldingData(addedHoldingDto.getUserId(), addedHoldingDto.getGoodsId());
-        System.out.println("=======");
-        System.out.println(addedHoldingDto.toString());
+	/**
+	 * 보유 데이터 추가, 업데이트
+	 */
+	public HoldingDto addHoldingData(HoldingDto addedHoldingDto) {
+		HoldingDto holdingDto = holdingRepository
+				.findByHoldingData(addedHoldingDto.getUserId(), addedHoldingDto.getGoodsId());
+		System.out.println("=======");
+		System.out.println(addedHoldingDto.toString());
 
 //		ModelMapper modelMapper = new ModelMapper();
 
@@ -60,33 +59,33 @@ public class HoldingService {
 //        Holding addedHolding = modelMapper.map(addedHoldingDto, Holding.class);
 //        System.out.println(addedHolding.toString());
 
-        if (holdingDto != null) {
-            holdingDto.update(addedHoldingDto.getGoods_cnt());
-            System.out.println("holdingdto " + holdingDto.toString());
-        } else {
-            holdingDto = addedHoldingDto;
+		if (holdingDto != null) {
+			holdingDto.update(addedHoldingDto.getGoods_cnt());
+			System.out.println("holdingdto " + holdingDto.toString());
+		} else {
+			holdingDto = addedHoldingDto;
 //            holdingDto.insert(addedHoldingDto.getUserId(), addedHoldingDto.getGoodsId(), addedHoldingDto.getGoods_cnt());
-            System.out.println("tttttt");
-            System.out.println("insertdto " + holdingDto.toString());
+			System.out.println("tttttt");
+			System.out.println("insertdto " + holdingDto.toString());
 
 //            holding.builder()
 //                    .user_id(addedHolding.getUser_id())
 //                    .goods_id(addedHolding.getGoods_id())
 //                    .goods_cnt(addedHolding.getGoods_cnt())
 //                    .build();
-        }
-//        Holding holding = modelMapper.map(holdingDto, Holding.class);
+		}
+//		Holding holding = modelMapper.map(holdingDto, Holding.class);
 
-        Holding holding = new Holding(holdingDto);
-        System.out.println("---- mapper -----");
-        System.out.println(holding.toString());
+		Holding holding = new Holding(holdingDto);
+		System.out.println("---- mapper -----");
+		System.out.println(holding.toString());
 
-        holdingRepository.save(holding);
+		holdingRepository.save(holding);
 //        holdingRepository.save(holding);
 //		HoldingDto holdingDto = modelMapper.map(holding, HoldingDto.class);
 
-        return addedHoldingDto;
-    }
+		return addedHoldingDto;
+	}
 
 //    Converter<Holding, HoldingDto> entityToDto = new Converter<Holding, HoldingDto>() {
 //        @Override
