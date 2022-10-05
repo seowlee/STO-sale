@@ -2,6 +2,7 @@ package com.sto.sale.backstosale.service;
 
 import com.sto.sale.backstosale.domain.Holding;
 import com.sto.sale.backstosale.dto.HoldingDto;
+import com.sto.sale.backstosale.dto.ListHoldingDto;
 import com.sto.sale.backstosale.repository.HoldingRepository;
 import com.sto.sale.backstosale.repository.ProductRepository;
 import com.sto.sale.backstosale.repository.UserRepository;
@@ -37,6 +38,10 @@ public class HoldingService {
      */
     public List<HoldingDto> findAllHoldings() {
         return holdingRepository.findByAllHoldings();
+    }
+
+    public List<ListHoldingDto> findListHolding() {
+        return holdingRepository.findByListHolding();
     }
 
 

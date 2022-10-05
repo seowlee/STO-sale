@@ -8,6 +8,7 @@ import ListProductsSalePage from "./pages/ListProductsSalePage";
 import MyPage from "./pages/MyPage";
 import OrderPage from "./pages/OrderPage";
 import HomePage from "./pages/HomePage";
+import HoldingListPage from "./pages/HoldingListPage";
 
 function App() {
   // const [message, setMessage] = useState([]);
@@ -60,6 +61,7 @@ function App() {
           ></Route> */}
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/listOnSale" element={<ListProductsSalePage />}></Route>
+          <Route path="/listHoldings" element={<HoldingListPage />}></Route>
           <Route path="/myPage" element={<MyPage />}></Route>
           <Route path="/order/:goods_id" element={<OrderPage />}></Route>
         </Routes>

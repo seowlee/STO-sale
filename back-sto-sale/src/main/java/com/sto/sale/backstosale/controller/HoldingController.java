@@ -1,6 +1,7 @@
 package com.sto.sale.backstosale.controller;
 
 import com.sto.sale.backstosale.dto.HoldingDto;
+import com.sto.sale.backstosale.dto.ListHoldingDto;
 import com.sto.sale.backstosale.service.HoldingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,13 @@ public class HoldingController {
         List<HoldingDto> holdings = holdingService.findAllHoldings();
         return holdings;
     }
+
+    @GetMapping("/holding/list")
+    public List<ListHoldingDto> getListHolding() {
+        List<ListHoldingDto> listHolding = holdingService.findListHolding();
+        return listHolding;
+    }
+
 
     //    @PostMapping("/holding/add")
 //    public ArrayList<HashMap<String, Object>> addHoldingData(@RequestBody HashMap<String, Object> requestJsonHashMap) throws Exception {
