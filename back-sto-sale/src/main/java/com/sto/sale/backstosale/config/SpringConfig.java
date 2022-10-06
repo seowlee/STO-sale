@@ -1,13 +1,7 @@
 package com.sto.sale.backstosale.config;
 
-import com.sto.sale.backstosale.repository.HoldingRepository;
-import com.sto.sale.backstosale.repository.ProductRepository;
-import com.sto.sale.backstosale.repository.SaleRepository;
-import com.sto.sale.backstosale.repository.UserRepository;
-import com.sto.sale.backstosale.service.HoldingService;
-import com.sto.sale.backstosale.service.ProductService;
-import com.sto.sale.backstosale.service.SaleService;
-import com.sto.sale.backstosale.service.UserService;
+import com.sto.sale.backstosale.repository.*;
+import com.sto.sale.backstosale.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,13 +14,15 @@ public class SpringConfig {
     private final SaleRepository saleRepository;
     private final UserRepository userRepository;
     private final HoldingRepository holdingRepository;
+    private final TransactionRepository transactionRepository;
 
     @Autowired
-    public SpringConfig(ProductRepository productRepository, SaleRepository saleRepository, UserRepository userRepository, HoldingRepository holdingRepository) {
+    public SpringConfig(ProductRepository productRepository, SaleRepository saleRepository, UserRepository userRepository, HoldingRepository holdingRepository, TransactionRepository transactionRepository) {
         this.productRepository = productRepository;
         this.saleRepository = saleRepository;
         this.userRepository = userRepository;
         this.holdingRepository = holdingRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     @Bean
@@ -47,6 +43,11 @@ public class SpringConfig {
     @Bean
     public HoldingService holdingService() {
         return new HoldingService(holdingRepository);
+    }
+
+    @Bean
+    public TransactionService transactionService() {
+        return new TransactionService(transactionRepository);
     }
 
     @Bean
