@@ -19,7 +19,7 @@ public class HoldingDto {
 //        this.goodsId = goods_id;
 //        this.goods_cnt += goods_cnt;
 //    }
-    public void update(Integer goods_cnt) {
+    public void update_holding(Integer goods_cnt) {
         this.goods_cnt += goods_cnt;
     }
 

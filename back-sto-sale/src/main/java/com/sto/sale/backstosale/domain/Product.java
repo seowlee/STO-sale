@@ -53,4 +53,9 @@ public class Product {
     public Product(Long goods_id) {
         this.goods_id = goods_id;
     }
+
+    public Product(Long goods_id, Integer total_cnt) {
+        this.goods_id = goods_id;
+        this.total_cnt = total_cnt;
+    }
 }

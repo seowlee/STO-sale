@@ -81,7 +81,8 @@ const OrderPage = () => {
         axios.post(`/sale/update`, {
           sale_goods_id: goods_id,
           sale_cnt: purchaseQuantity,
-          sale_rate: 0.0,
+          sale_rate: detailProduct.sale_rate,
+          total_cnt: detailProduct.total_cnt,
         }),
       ])
       .then(
