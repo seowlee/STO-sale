@@ -17,6 +17,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 // import { DetailProductContext } from "./ListProductsSalePage";
 
@@ -28,6 +30,7 @@ const OrderPage = () => {
   const [purchaseQuantity, setPurchaseQuantity] = useState("");
   const [user, setUser] = useState("");
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
   useEffect(() => {
     axios
@@ -62,6 +65,12 @@ const OrderPage = () => {
     //   .catch(function () {
     //     console.log("실패");
     //   });
+  };
+  const handleClickFailPurchase = (event, id) => {
+    setOpen2(true);
+  };
+  const handleCloseFailPurchase = (event, id) => {
+    setOpen2(false);
   };
 
   const handleCloseCancel = () => {
@@ -176,7 +185,15 @@ const OrderPage = () => {
         <br />
       </Paper>
       <Paper>
-        <Button onClick={(event) => handleClickPurchase(event)}>구매</Button>
+        <Button
+          onClick={(event) =>
+            purchaseQuantity > availableQuantity
+              ? handleClickFailPurchase(event)
+              : handleClickPurchase(event)
+          }
+        >
+          구매
+        </Button>
       </Paper>
       <Dialog
         fullWidth={true}
@@ -188,10 +205,12 @@ const OrderPage = () => {
         <DialogTitle id="alert-dialog-title">{"구매 내역"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            user id : {user} <br />
-            구매 수량 : {purchaseQuantity}
-            <br />총 구매 가격 : {totalPurchasePrice}
-            <br />
+            <span style={{ color: "black" }}>
+              user id : {user} <br />
+              구매 수량 : {purchaseQuantity} 개
+              <br />총 구매 가격 : {totalPurchasePrice} 원
+              <br />
+            </span>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -200,6 +219,12 @@ const OrderPage = () => {
             확인
           </Button>
         </DialogActions>
+      </Dialog>
+      <Dialog fullWidth={true} open={open2} onClose={handleCloseFailPurchase}>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          This is an error alert — <strong>check it out!</strong>
+        </Alert>
       </Dialog>
     </div>
   );
