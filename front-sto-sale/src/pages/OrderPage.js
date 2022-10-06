@@ -47,11 +47,12 @@ const OrderPage = () => {
       });
   }, [goods_id]);
 
+  const totalPurchasePrice = purchaseQuantity * detailProduct.unit_amt;
+  const availableQuantity = detailProduct.total_cnt - detailProduct.sale_cnt;
+
   const handleChangeUser = (event) => {
     setUser(event.target.value);
   };
-
-  const totalPurchasePrice = purchaseQuantity * detailProduct.unit_amt;
 
   const handleClickPurchase = (event, id) => {
     setOpen(true);
@@ -80,6 +81,7 @@ const OrderPage = () => {
   };
 
   const handleCloseCheck = () => {
+    const transactionDate = new Date();
     axios
       .all([
         axios.post(`/holding/add`, {
@@ -93,6 +95,13 @@ const OrderPage = () => {
           sale_rate: detailProduct.sale_rate,
           total_cnt: detailProduct.total_cnt,
         }),
+        axios.post(`/transaction/add`, {
+          userId: user,
+          goodsId: goods_id,
+          transactionCnt: purchaseQuantity,
+          transactionStat: 0,
+          transactionDt: transactionDate,
+        }),
       ])
       .then(
         axios.spread((response1, response2) => {
@@ -105,7 +114,6 @@ const OrderPage = () => {
     setOpen(false);
   };
 
-  const availableQuantity = detailProduct.total_cnt - detailProduct.sale_cnt;
   // console.log("Quantity", typeof purchaseQuantity);
   // console.log("param", goods_id);
   // console.log("Success", userIds);
