@@ -2,16 +2,15 @@ package com.sto.sale.backstosale.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sto.sale.backstosale.dto.SaleDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "sale")
 @Entity
@@ -41,12 +40,12 @@ public class Sale {
 //        this.sale_cnt = sale_cnt;
 //        this.sale_rate = sale_rate;
 //    }
-    @Builder
-    public Sale(Product product, Integer sale_cnt, Double sale_rate) {
-        this.product = product;
-        this.sale_cnt = sale_cnt;
-        this.sale_rate = sale_rate;
-    }
+//    @Builder
+//    public Sale(Product product, Integer sale_cnt, Double sale_rate) {
+//        this.product = product;
+//        this.sale_cnt = sale_cnt;
+//        this.sale_rate = sale_rate;
+//    }
 
     public Sale(SaleDto saleDto) {
         this.sale_goods_id = saleDto.getSale_goods_id();
