@@ -50,7 +50,7 @@ public class SaleService {
 //        sale.setSale_rate((sale.getSale_cnt() + saleDto.getSale_cnt()) / saleDto.getTotal_cnt() * 100.0);
         saleRepository.save(sale);
 
-        return addedSaleDto;
+        return saleIdDto;
     }
 
 }
