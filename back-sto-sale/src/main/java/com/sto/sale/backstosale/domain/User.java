@@ -1,5 +1,6 @@
 package com.sto.sale.backstosale.domain;
 
+import com.sto.sale.backstosale.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,5 +24,11 @@ public class User {
 
     public User(Long user_id) {
         this.user_id = user_id;
+    }
+
+    public User(UserDto userDto) {
+        this.user_id = userDto.getUser_id();
+        this.user_account = userDto.getUser_account();
+        this.user_nm = userDto.getUser_nm();
     }
 }
