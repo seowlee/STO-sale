@@ -64,12 +64,21 @@ const ListProductsSalePage = () => {
               {/* id: {productData.goods_id}, */}
               상품명 : {productData.goods_nm}
             </Typography>
-            <Typography variant="body2">
+            {productData.stat === 0 && (
+              <Typography variant="body1">상품상태 : 판매중</Typography>
+            )}
+            {productData.stat === 1 && (
+              <Typography variant="body1">상품상태 : 판매완료</Typography>
+            )}
+            <Typography variant="body1">
+              전체 가격 : {productData.total_amt}
+            </Typography>
+            {/* <Typography variant="body1">
               stat : {productData.stat}
               <br />
               전체 가격 : {productData.total_amt}
               <br />
-              {/* order_fee : {productData.ordr_fee}
+              order_fee : {productData.ordr_fee}
               <br />
               trade_fee : {productData.trade_fee}
               <br />
@@ -77,8 +86,8 @@ const ListProductsSalePage = () => {
               <br />
               created_by : {productData.created_by}
               <br />
-              sale_cnt : {productData.sale_cnt} */}
-            </Typography>
+              sale_cnt : {productData.sale_cnt}
+            </Typography> */}
             <br />
             <br />
             <Grid container spacing={2}>
