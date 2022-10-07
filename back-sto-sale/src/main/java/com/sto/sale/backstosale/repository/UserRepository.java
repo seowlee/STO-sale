@@ -12,6 +12,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u.user_id from User u")
     List<Long> findAllByUserIds();
 
-    @Query("select u from User u where u.user_id = :id")
+
+    @Query("select new com.sto.sale.backstosale.dto.UserDto(u.user_id, u.user_account, u.user_nm)"
+            + "from User u where u.user_id = :id")
     UserDto findByUserId(@Param("id") Long id);
 }

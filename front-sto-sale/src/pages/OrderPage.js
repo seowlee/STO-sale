@@ -102,6 +102,10 @@ const OrderPage = () => {
           transactionStat: 0,
           transactionDt: transactionDate,
         }),
+        axios.post(`/user/update`, {
+          user_id: user,
+          price: totalPurchasePrice,
+        }),
       ])
       .then(
         axios.spread((response1, response2) => {

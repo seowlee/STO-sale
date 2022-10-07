@@ -22,6 +22,9 @@ public class User {
     private Integer user_account;
     private String user_nm;
 
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    private List<Transaction> transactions;
+
     public User(Long user_id) {
         this.user_id = user_id;
     }
