@@ -5,10 +5,10 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 // import NavigationBar from "./components/NavigationBar";
 // import SalesRegistrationPage from "./pages/SalesRegistrationPage";
 import ListProductsSalePage from "./pages/ListProductsSalePage";
-import MyPage from "./pages/MyPage";
 import OrderPage from "./pages/OrderPage";
 import HomePage from "./pages/HomePage";
 import HoldingListPage from "./pages/HoldingListPage";
+import TransactionHistoryPage from "./pages/TransactionHistoryPage";
 
 function App() {
   // const [message, setMessage] = useState([]);
@@ -62,7 +62,10 @@ function App() {
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/listOnSale" element={<ListProductsSalePage />}></Route>
           <Route path="/listHoldings" element={<HoldingListPage />}></Route>
-          <Route path="/myPage" element={<MyPage />}></Route>
+          <Route
+            path="/transactionHistory"
+            element={<TransactionHistoryPage />}
+          ></Route>
           <Route path="/order/:goods_id" element={<OrderPage />}></Route>
         </Routes>
       </BrowserRouter>
