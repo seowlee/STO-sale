@@ -13,8 +13,8 @@ import java.util.Date;
 @Data
 public class TransactionDto {
     private Long transactionId;
-    private Long userId;
     private Long goodsId;
+    private Long userId;
     private Integer transactionCnt;
     private Integer transactionStat;
     private Date transactionDt;

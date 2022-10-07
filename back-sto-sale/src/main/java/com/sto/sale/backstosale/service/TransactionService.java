@@ -4,25 +4,30 @@ import com.sto.sale.backstosale.domain.Transaction;
 import com.sto.sale.backstosale.dto.TransactionDto;
 import com.sto.sale.backstosale.repository.TransactionRepository;
 
+import java.util.List;
+
 public class TransactionService {
 
-	private TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
 
-	public TransactionService(TransactionRepository transactionRepository) {
-		this.transactionRepository = transactionRepository;
-	}
+    public TransactionService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
-	/**
-	 * 모든 거래 내역 조회
-	 */
+    /**
+     * 모든 거래 내역 조회
+     */
+    public List<TransactionDto> findAllTransactions() {
+        return transactionRepository.findByAllTransactions();
+    }
 
-	/**
-	 * 거래 내역 추가 (insert)
-	 */
-	public TransactionDto addTransactionData(TransactionDto transactionDto) {
-		Transaction transaction = new Transaction(transactionDto);
-		transactionRepository.save(transaction);
-		return transactionDto;
-	}
+    /**
+     * 거래 내역 추가 (insert)
+     */
+    public TransactionDto addTransactionData(TransactionDto transactionDto) {
+        Transaction transaction = new Transaction(transactionDto);
+        transactionRepository.save(transaction);
+        return transactionDto;
+    }
 
 }

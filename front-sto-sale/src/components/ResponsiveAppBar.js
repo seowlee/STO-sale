@@ -17,7 +17,7 @@ import { yellow } from "@mui/material/colors";
 const pages = [
   { page_url: "listOnSale", tab_name: "판매상품목록" },
   { page_url: "listHoldings", tab_name: "상품보유목록" },
-  { page_url: "myPage", tab_name: "마이페이지" },
+  { page_url: "transactionHistory", tab_name: "거래내역" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
