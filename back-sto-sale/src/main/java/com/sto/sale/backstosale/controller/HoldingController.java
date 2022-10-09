@@ -1,5 +1,6 @@
 package com.sto.sale.backstosale.controller;
 
+import com.sto.sale.backstosale.dto.CancellationSaleDto;
 import com.sto.sale.backstosale.dto.GoodsHoldingDto;
 import com.sto.sale.backstosale.dto.HoldingDto;
 import com.sto.sale.backstosale.service.HoldingService;
@@ -57,6 +58,20 @@ public class HoldingController {
 		holdingService.addHoldingData(holdingDto);
 		return holdingDto;
 	}
+
+//	@GetMapping("/holding/delete")
+//	public List<HoldingDto> getDeleteGoodsHoldings(@RequestParam Long goods_id) {
+//		List<HoldingDto> holdingDtos = holdingService.findGoodsHolding(goods_id);
+//		return holdingDtos;
+//	}
+
+	@PostMapping("/holding/delete")
+	public List<HoldingDto> deleteGoodsHoldings(@RequestBody CancellationSaleDto cancleDto) {
+//		System.out.println("delete: " + cancleDto.getGoodsId());
+		List<HoldingDto> holdingDtos = holdingService.findGoodsHolding(cancleDto);
+		return holdingDtos;
+	}
+
 
 //    @PutMapping("holding/add")
 //    public Holding updateHolding(@RequestBody Holding holding) {

@@ -61,7 +61,7 @@ public class SaleController {
 
 	@PostMapping("/sale/delete")
 	public CancellationSaleDto deleteGoodsSale(@RequestBody CancellationSaleDto cancellationSaleDto) {
-		System.out.println("delete: " + cancellationSaleDto.getGoodsId());
+//		System.out.println("delete: " + cancellationSaleDto.getGoodsId());
 		saleService.resetGoodsSale(cancellationSaleDto);
 		return cancellationSaleDto;
 	}

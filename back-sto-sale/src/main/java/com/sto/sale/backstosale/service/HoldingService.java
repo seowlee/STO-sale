@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sto.sale.backstosale.domain.Holding;
 import com.sto.sale.backstosale.domain.QHolding;
+import com.sto.sale.backstosale.dto.CancellationSaleDto;
 import com.sto.sale.backstosale.dto.GoodsHoldingDto;
 import com.sto.sale.backstosale.dto.HoldingDto;
 import com.sto.sale.backstosale.repository.HoldingRepository;
@@ -109,6 +110,11 @@ public class HoldingService {
 //		HoldingDto holdingDto = modelMapper.map(holding, HoldingDto.class);
 
 		return addedHoldingDto;
+	}
+
+	public List<HoldingDto> findGoodsHolding(CancellationSaleDto cancledDto) {
+		List<HoldingDto> deletedHoldingDtos = holdingRepository.findByGoodsHolding(cancledDto.getGoodsId());
+		return deletedHoldingDtos;
 	}
 
 //    Converter<Holding, HoldingDto> entityToDto = new Converter<Holding, HoldingDto>() {

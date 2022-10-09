@@ -44,13 +44,9 @@ const GoodsHoldingPage = () => {
         axios.post(`/sale/delete`, {
           goodsId: goodsId,
         }),
-        // axios.post(`/transaction/delete`, {
-        //   userId: user,
-        //   goodsId: goods_id,
-        //   transactionCnt: purchaseQuantity,
-        //   transactionStat: 1,
-        //   transactionDt: transactionDate,
-        // }),
+        axios.post(`/transaction/delete`, {
+          goodsId: goodsId,
+        }),
         // axios.post(`/user/delete`, {
         //   user_id: user,
         //   price: totalPurchasePrice,

@@ -1,5 +1,6 @@
 package com.sto.sale.backstosale.controller;
 
+import com.sto.sale.backstosale.dto.CancellationSaleDto;
 import com.sto.sale.backstosale.dto.TransactionDto;
 import com.sto.sale.backstosale.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,11 @@ public class TransactionController {
 	public TransactionDto createTransactionData(@RequestBody TransactionDto transactionDto) {
 		transactionService.addTransactionData(transactionDto);
 		return transactionDto;
+	}
+
+	@PostMapping("/transaction/delete")
+	public CancellationSaleDto deleteGoodsTransaction(@RequestBody CancellationSaleDto cancellationSaleDto) {
+		transactionService.resetGoodsTransaction(cancellationSaleDto);
+		return cancellationSaleDto;
 	}
 }

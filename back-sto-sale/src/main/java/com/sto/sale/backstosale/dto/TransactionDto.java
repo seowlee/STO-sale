@@ -12,10 +12,16 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class TransactionDto {
-    private Long transactionId;
-    private Long goodsId;
-    private Long userId;
-    private Integer transactionCnt;
-    private Integer transactionStat;
-    private Date transactionDt;
+	private Long transactionId;
+	private Long goodsId;
+	private Long userId;
+	private Integer transactionCnt;
+	private Integer transactionStat;
+	private Date transactionDt;
+
+	public void cancle_transaction(CancellationSaleDto cancellationSaleDto) {
+		this.transactionId = cancellationSaleDto.getGoodsId() + 100000;
+		this.transactionStat = 1;
+		this.transactionDt = new Date();
+	}
 }

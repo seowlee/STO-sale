@@ -58,7 +58,6 @@ public class SaleService {
 	 * 선택된 상품 판매 취소. 판매 정보 삭제
 	 */
 	public SaleDto resetGoodsSale(CancellationSaleDto cancellationSaleDto) {
-		System.out.println("delete");
 		SaleDto saleDto = saleRepository.findBySaleProductId(cancellationSaleDto.getGoodsId());
 		saleDto.delete_sale();
 		Sale sale = new Sale(saleDto);
