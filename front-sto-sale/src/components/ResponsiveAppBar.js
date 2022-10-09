@@ -16,8 +16,9 @@ import { Link } from "react-router-dom";
 import { yellow } from "@mui/material/colors";
 const pages = [
   { page_url: "listOnSale", tab_name: "판매상품목록" },
-  { page_url: "listHoldings", tab_name: "상품보유목록" },
+  { page_url: "goodsHoldings", tab_name: "상품보유목록" },
   { page_url: "transactionHistory", tab_name: "거래내역" },
+  { page_url: "userHoldings", tab_name: "유저보유목록" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 

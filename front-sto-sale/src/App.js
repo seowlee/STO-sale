@@ -7,8 +7,9 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import ListProductsSalePage from "./pages/ListProductsSalePage";
 import OrderPage from "./pages/OrderPage";
 import HomePage from "./pages/HomePage";
-import HoldingListPage from "./pages/HoldingListPage";
+import GoodsHoldingPage from "./pages/GoodsHoldingPage";
 import TransactionHistoryPage from "./pages/TransactionHistoryPage";
+import UserHoldingPage from "./pages/UserHoldingPage";
 
 function App() {
   // const [message, setMessage] = useState([]);
@@ -61,12 +62,13 @@ function App() {
           ></Route> */}
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/listOnSale" element={<ListProductsSalePage />}></Route>
-          <Route path="/listHoldings" element={<HoldingListPage />}></Route>
+          <Route path="/goodsHoldings" element={<GoodsHoldingPage />}></Route>
           <Route
             path="/transactionHistory"
             element={<TransactionHistoryPage />}
           ></Route>
           <Route path="/order/:goods_id" element={<OrderPage />}></Route>
+          <Route path="/userHoldings" element={<UserHoldingPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,5 +1,6 @@
 package com.sto.sale.backstosale.controller;
 
+import com.sto.sale.backstosale.dto.GoodsHoldingDto;
 import com.sto.sale.backstosale.dto.HoldingDto;
 import com.sto.sale.backstosale.service.HoldingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,11 @@ public class HoldingController {
 		return holdings;
 	}
 
-//    @GetMapping("/holding/list")
-//    public List<ListHoldingDto> getListHolding() {
-//        List<ListHoldingDto> listHolding = holdingService.findListHolding();
-//        return listHolding;
-//    }
+	@GetMapping("/holding/goods")
+	public List<GoodsHoldingDto> getListHolding() {
+		List<GoodsHoldingDto> listHolding = holdingService.findListHolding();
+		return listHolding;
+	}
 
 
 	//    @PostMapping("/holding/add")

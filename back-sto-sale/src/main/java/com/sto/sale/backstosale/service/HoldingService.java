@@ -1,6 +1,11 @@
 package com.sto.sale.backstosale.service;
 
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sto.sale.backstosale.domain.Holding;
+import com.sto.sale.backstosale.domain.QHolding;
+import com.sto.sale.backstosale.dto.GoodsHoldingDto;
 import com.sto.sale.backstosale.dto.HoldingDto;
 import com.sto.sale.backstosale.repository.HoldingRepository;
 import com.sto.sale.backstosale.repository.ProductRepository;
@@ -10,10 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static com.sto.sale.backstosale.domain.QProduct.product;
+import static com.sto.sale.backstosale.domain.QUser.user;
+
 public class HoldingService {
 	private HoldingRepository holdingRepository;
 	private UserRepository userRepository;
 	private ProductRepository productRepository;
+
+	@Autowired
+	JPAQueryFactory jpaQueryFactory;
 
 	public HoldingService(HoldingRepository holdingRepository) {
 		this.holdingRepository = holdingRepository;
@@ -39,9 +50,22 @@ public class HoldingService {
 		return holdingRepository.findByAllHoldings();
 	}
 
-//	public List<ListHoldingDto> findListHolding() {
+	/**
+	 * 상품 별 판매 개수, 보유자 리스트
+	 */
+	public List<GoodsHoldingDto> findListHolding() {
+		QHolding qHolding = QHolding.holding;
+		List<GoodsHoldingDto> list = jpaQueryFactory.select(Projections.fields(GoodsHoldingDto.class, product.goods_id.as("goodsId"), product.goods_nm.as("goodsNm"), qHolding.goods_cnt.sum().as("sumGoodsCnt"), Expressions.stringTemplate("group_concat({0})", qHolding.user.user_id).as("userIds")))
+				.from(qHolding)
+				.join(qHolding.product, product)
+				.join(qHolding.user, user)
+				.groupBy(qHolding.product.goods_id)
+				.fetch();
+
+		return list;
+
 //		return holdingRepository.findByListHolding();
-//	}
+	}
 
 
 	/**

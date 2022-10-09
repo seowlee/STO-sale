@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @Data
-public class ListHoldingDto {
+public class GoodsHoldingDto {
 
 	private Long goodsId;
 	private String goodsNm;
@@ -21,7 +21,7 @@ public class ListHoldingDto {
 	//    private BigDecimal sumGoodsCnt;
 //    private String userIds;
 	@QueryProjection
-	public ListHoldingDto(Long goodsId, String goodsNm, Integer sumGoodsCnt, String userIds) {
+	public GoodsHoldingDto(Long goodsId, String goodsNm, Integer sumGoodsCnt, String userIds) {
 		this.goodsId = goodsId;
 		this.goodsNm = goodsNm;
 		this.sumGoodsCnt = sumGoodsCnt;

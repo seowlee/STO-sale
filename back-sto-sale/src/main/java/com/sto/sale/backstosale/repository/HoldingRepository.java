@@ -18,9 +18,11 @@ public interface HoldingRepository extends JpaRepository<Holding, Long> {
 //    @Query(value = "select new com.sto.sale.backstosale.dto.ListHoldingDto(p.goods_id, sum(h.goods_cnt), group_concat(u.user_id))"
 //            + "from Holding h join h.user u join h.product p group by p.goods_id")
 //    List<ListHoldingDto> findByListHolding();
-//    @Query("select p.goods_id, sum(h.goods_cnt), group_concat(u.user_id)"
-//            + "from Holding h join h.user u join h.product p group by p.goods_id")
-//    List<HoldingDto> findByListHolding();
+
+	//	@Query(value = "select new com.sto.sale.backstosale.dto.ListHoldingDto(p.goods_id, p.goods_nm, sum(h.goods_cnt), group_concat(u.user_id))"
+//			+ "from Holding h join h.product as p join h.user as u group by p.goods_id", nativeQuery = true)
+//	List<ListHoldingDto> findByListHolding();
+
 
 	@Query("select new com.sto.sale.backstosale.dto.HoldingDto(h.holding_id, u.user_id, p.goods_id, h.goods_cnt)"
 			+ "from Holding h join h.user u join h.product p where u.user_id = :user_id and p.goods_id = :goods_id")
