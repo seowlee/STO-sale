@@ -15,6 +15,7 @@ import axios from "axios";
 const GoodsHoldingPage = () => {
   const [holdings, setHoldings] = useState([]);
   const [expandedAccordion, setExpandedAccordion] = useState(false);
+  const [goodsId, setGoodsId] = useState(0);
 
   useEffect(() => {
     axios
@@ -32,8 +33,37 @@ const GoodsHoldingPage = () => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
 
-  const handleClickNotRegister = () => {
-    alert(`cancel`);
+  const handleClickNotRegister = (goodsId) => {
+    setGoodsId(goodsId);
+    alert(`cancel ${goodsId}`);
+    axios
+      .all([
+        axios.post(`/holding/delete`, {
+          goodsId: goodsId,
+        }),
+        axios.post(`/sale/delete`, {
+          goodsId: goodsId,
+        }),
+        // axios.post(`/transaction/delete`, {
+        //   userId: user,
+        //   goodsId: goods_id,
+        //   transactionCnt: purchaseQuantity,
+        //   transactionStat: 1,
+        //   transactionDt: transactionDate,
+        // }),
+        // axios.post(`/user/delete`, {
+        //   user_id: user,
+        //   price: totalPurchasePrice,
+        // }),
+      ])
+      .then(
+        axios.spread((res1, res2) => {
+          console.log("res1", res1, "res2", res2);
+        })
+      )
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
   return (
@@ -68,7 +98,7 @@ const GoodsHoldingPage = () => {
             <Button
               variant="contained"
               size="large"
-              onClick={(event) => handleClickNotRegister(event, idx)}
+              onClick={() => handleClickNotRegister(goods.goodsId)}
             >
               판매취소
             </Button>
