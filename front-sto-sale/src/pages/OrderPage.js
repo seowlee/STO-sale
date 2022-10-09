@@ -108,8 +108,8 @@ const OrderPage = () => {
         }),
       ])
       .then(
-        axios.spread((response1, response2) => {
-          console.log("response1", response1, "response2", response2);
+        axios.spread((res1, res2, res3, res4) => {
+          console.log("res1", res1, "res2", res2, "res3", res3, "res4", res4);
         })
       )
       .catch((error) => {
