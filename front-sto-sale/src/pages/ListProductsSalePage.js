@@ -95,8 +95,7 @@ const ListProductsSalePage = () => {
           <Card key={idx} sx={{ minWidth: 275 }} variant="outlined">
             <CardContent>
               <Typography variant="h5" component="div">
-                {/* id: {productData.goods_id}, */}
-                상품명 : {productData.goods_nm}
+                id: {productData.goods_id}, 상품명 : {productData.goods_nm}
               </Typography>
               {productData.stat === 0 && (
                 <Typography variant="body1">상품상태 : 판매중</Typography>

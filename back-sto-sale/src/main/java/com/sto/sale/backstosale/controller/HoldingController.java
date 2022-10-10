@@ -3,6 +3,7 @@ package com.sto.sale.backstosale.controller;
 import com.sto.sale.backstosale.dto.CancellationSaleDto;
 import com.sto.sale.backstosale.dto.GoodsHoldingDto;
 import com.sto.sale.backstosale.dto.HoldingDto;
+import com.sto.sale.backstosale.dto.UserHoldingDto;
 import com.sto.sale.backstosale.service.HoldingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,12 @@ public class HoldingController {
 	public List<GoodsHoldingDto> getListHolding() {
 		List<GoodsHoldingDto> listHolding = holdingService.findListHolding();
 		return listHolding;
+	}
+
+	@GetMapping("/holding/user")
+	public List<UserHoldingDto> getUserListHolding() {
+		List<UserHoldingDto> listUserHolding = holdingService.findListUserHolding();
+		return listUserHolding;
 	}
 
 

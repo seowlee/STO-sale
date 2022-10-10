@@ -8,6 +8,7 @@ import com.sto.sale.backstosale.domain.QHolding;
 import com.sto.sale.backstosale.dto.CancellationSaleDto;
 import com.sto.sale.backstosale.dto.GoodsHoldingDto;
 import com.sto.sale.backstosale.dto.HoldingDto;
+import com.sto.sale.backstosale.dto.UserHoldingDto;
 import com.sto.sale.backstosale.repository.HoldingRepository;
 import com.sto.sale.backstosale.repository.ProductRepository;
 import com.sto.sale.backstosale.repository.UserRepository;
@@ -64,8 +65,22 @@ public class HoldingService {
 				.fetch();
 
 		return list;
-
 //		return holdingRepository.findByListHolding();
+	}
+
+	/**
+	 * 유저 별 보유 상품 개수, 보유 상품 리스트
+	 */
+	public List<UserHoldingDto> findListUserHolding() {
+		QHolding qHolding = QHolding.holding;
+		List<UserHoldingDto> userList = jpaQueryFactory.select(Projections.fields(UserHoldingDto.class, user.user_id.as("userId"), user.user_nm.as("userNm"), Expressions.stringTemplate("group_concat({0})", qHolding.product.goods_id).as("goodsIds"), Expressions.stringTemplate("group_concat({0})", qHolding.goods_cnt).as("goodsCnts")))
+				.from(qHolding)
+				.join(qHolding.product, product)
+				.join(qHolding.user, user)
+				.groupBy(qHolding.user.user_id)
+				.fetch();
+
+		return userList;
 	}
 
 

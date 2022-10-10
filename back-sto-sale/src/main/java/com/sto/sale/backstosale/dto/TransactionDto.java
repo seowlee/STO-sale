@@ -21,7 +21,9 @@ public class TransactionDto {
 
 	public void cancle_previousTransaction(CancellationSaleDto cancellationSaleDto) {
 		if (this.transactionStat == 0) {
-			this.transactionStat = 2;
+			this.transactionStat = 1;
+			this.transactionDt = new Date();
+
 		}
 	}
 
