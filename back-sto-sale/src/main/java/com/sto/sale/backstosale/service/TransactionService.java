@@ -4,6 +4,10 @@ import com.sto.sale.backstosale.domain.Transaction;
 import com.sto.sale.backstosale.dto.CancellationSaleDto;
 import com.sto.sale.backstosale.dto.TransactionDto;
 import com.sto.sale.backstosale.repository.TransactionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -18,8 +22,19 @@ public class TransactionService {
 	/**
 	 * 모든 거래 내역 조회
 	 */
-	public List<TransactionDto> findAllTransactions() {
-		return transactionRepository.findByAllTransactions();
+	public List<TransactionDto> findAllTransactions(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by("transaction_dt").descending());
+		return transactionRepository.findByAllTransactions(pageable);
+	}
+
+	/**
+	 * 모든 거래 내역의 총 개수
+	 */
+	public Long findAllTransactionCnt() {
+		Pageable pageable = PageRequest.of(0, 5);
+		Page<Transaction> transactionPage = transactionRepository.findByAllTransactionCnt(pageable);
+		Long totalCnt = transactionPage.getTotalElements();
+		return totalCnt;
 	}
 
 	/**
@@ -38,13 +53,15 @@ public class TransactionService {
 		System.out.println("delete");
 		System.out.println("delete: " + cancellationSaleDto.getGoodsId());
 		List<TransactionDto> transactionDtos = transactionRepository.findBySelectedTransactions(cancellationSaleDto.getGoodsId());
+		for (TransactionDto dtoAfter : transactionDtos) {
+			dtoAfter.cancle_transaction(cancellationSaleDto);
+			Transaction cancleAfter = new Transaction(dtoAfter);
+			transactionRepository.save(cancleAfter);
+		}
 		for (TransactionDto dto : transactionDtos) {
 			dto.cancle_previousTransaction(cancellationSaleDto);
 			Transaction canclePrevious = new Transaction(dto);
 			transactionRepository.save(canclePrevious);
-			dto.cancle_transaction(cancellationSaleDto);
-			Transaction cancleAfter = new Transaction(dto);
-			transactionRepository.save(cancleAfter);
 		}
 
 		return transactionDtos;

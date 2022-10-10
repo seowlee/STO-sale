@@ -12,6 +12,7 @@ import {
   Box,
 } from "@mui/material";
 import axios from "axios";
+import Paging from "../components/Paging";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,10 +36,43 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const TransactionHistoryPage = () => {
   const [transactions, setTransactions] = useState([]);
+  const [count, setCount] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(5);
 
   useEffect(() => {
     axios
-      .get("/transaction/all")
+      .all([
+        axios.get(`/transaction/all`, {
+          params: {
+            page: currentPage - 1,
+            size: postPerPage,
+          },
+        }),
+        axios.get(`/transaction/all/count`),
+      ])
+      .then(
+        axios.spread((res1, res2) => {
+          setTransactions(res1.data);
+          setCount(res2.data);
+          console.log("res1", res1, "res2", res2);
+        })
+      )
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, []);
+
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+    console.log(currentPage);
+    axios
+      .get(`/transaction/all`, {
+        params: {
+          page: currentPage - 1,
+          size: postPerPage,
+        },
+      })
       .then((res) => {
         setTransactions(res.data);
         // console.log("test", res);
@@ -46,51 +80,69 @@ const TransactionHistoryPage = () => {
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  };
 
   return (
-    <Box sx={{ ml: 2, mr: 2, mt: 2, md: 2 }}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>거래번호</StyledTableCell>
-              <StyledTableCell align="right">상품번호</StyledTableCell>
-              <StyledTableCell align="right">유저번호</StyledTableCell>
-              <StyledTableCell align="right">거래상품 개수</StyledTableCell>
-              <StyledTableCell align="right">거래상태</StyledTableCell>
-              <StyledTableCell align="right">거래시각</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {transactions.map((trnsc) => (
-              <StyledTableRow key={trnsc.transactionId}>
-                <StyledTableCell component="th" scope="trnsc">
-                  {trnsc.transactionId}
-                </StyledTableCell>
-                <StyledTableCell align="right">{trnsc.goodsId}</StyledTableCell>
-                <StyledTableCell align="right">{trnsc.userId}</StyledTableCell>
-                <StyledTableCell align="right">
-                  {trnsc.transactionCnt}
-                </StyledTableCell>
-                {trnsc.transactionStat === 0 && (
-                  <StyledTableCell align="right">정상판매</StyledTableCell>
-                )}
-                {trnsc.transactionStat === 1 && (
-                  <StyledTableCell align="right">판매취소</StyledTableCell>
-                )}
-                {trnsc.transactionStat === 2 && (
-                  <StyledTableCell align="right">구매후 취소됨</StyledTableCell>
-                )}
-                <StyledTableCell align="right">
-                  {trnsc.transactionDt}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+    <div>
+      <Box sx={{ ml: 2, mr: 2, mt: 2, md: 2 }}>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>거래번호</StyledTableCell>
+                <StyledTableCell align="right">상품번호</StyledTableCell>
+                <StyledTableCell align="right">유저번호</StyledTableCell>
+                <StyledTableCell align="right">거래상품 개수</StyledTableCell>
+                <StyledTableCell align="right">거래상태</StyledTableCell>
+                <StyledTableCell align="right">거래시각</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {transactions.length > 0 ? (
+                transactions.map((trnsc) => (
+                  <StyledTableRow key={trnsc.transactionId}>
+                    <StyledTableCell component="th" scope="trnsc">
+                      {trnsc.transactionId}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {trnsc.goodsId}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {trnsc.userId}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {trnsc.transactionCnt}
+                    </StyledTableCell>
+                    {trnsc.transactionStat === 0 && (
+                      <StyledTableCell align="right">정상판매</StyledTableCell>
+                    )}
+                    {trnsc.transactionStat === 1 && (
+                      <StyledTableCell align="right">판매취소</StyledTableCell>
+                    )}
+                    {trnsc.transactionStat === 2 && (
+                      <StyledTableCell align="right">
+                        구매후 취소됨
+                      </StyledTableCell>
+                    )}
+                    <StyledTableCell align="right">
+                      {trnsc.transactionDt}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))
+              ) : (
+                <div>No Transaction History</div>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+      <Paging
+        page={currentPage}
+        postPerPage={postPerPage}
+        count={count}
+        setPage={handlePageChange}
+      />
+    </div>
   );
 };
 

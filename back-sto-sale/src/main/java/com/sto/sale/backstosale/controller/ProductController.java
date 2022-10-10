@@ -6,6 +6,7 @@ import com.sto.sale.backstosale.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -46,9 +47,15 @@ public class ProductController {
 	 * 판매 상품 목록 조회 (Product join Sale)
 	 */
 	@GetMapping("/product/on-sale")
-	public List<ProductDto> getJoin() {
-		List<ProductDto> joinProduct = productService.findOnSaleProducts();
+	public List<ProductDto> getJoinProduct(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "5") Integer size) {
+		List<ProductDto> joinProduct = productService.findOnSaleProducts(page, size);
 		return joinProduct;
+	}
+
+	@GetMapping("/product/on-sale/count")
+	public Long getOnSaleProductsCnt() {
+		Long totalOnSaleProductCnt = productService.findOnSaleProductsCnt();
+		return totalOnSaleProductCnt;
 	}
 
 	@GetMapping("/product/order/{id}")
