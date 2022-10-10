@@ -33,30 +33,39 @@ const GoodsHoldingPage = () => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
 
-  const handleClickNotRegister = (goodsId) => {
+  const handleClickCancelSale = (goodsId) => {
     setGoodsId(goodsId);
     alert(`cancel ${goodsId}`);
     axios
       .all([
-        axios.post(`/holding/delete`, {
-          goodsId: goodsId,
-        }),
         axios.post(`/sale/delete`, {
           goodsId: goodsId,
         }),
-        axios.post(`/transaction/delete`, {
+        axios.post(`/transaction/cancel`, {
           goodsId: goodsId,
         }),
-        // axios.post(`/user/delete`, {
-        //   user_id: user,
-        //   price: totalPurchasePrice,
-        // }),
+        axios.post(`/user/delete`, {
+          goodsId: goodsId,
+        }),
       ])
       .then(
-        axios.spread((res1, res2) => {
-          console.log("res1", res1, "res2", res2);
+        axios.spread((res1, res2, res3) => {
+          console.log("res1", res1, "res2", res2, "res3", res3);
         })
       )
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  const handleClickCancelSaleHolding = (goodsId) => {
+    axios
+      .delete(`/holding/delete`, {
+        data: { goodsId: goodsId },
+      })
+      .then((res) => {
+        console.log("delete holding", res);
+      })
       .catch((error) => {
         console.log("error", error);
       });
@@ -94,7 +103,10 @@ const GoodsHoldingPage = () => {
             <Button
               variant="contained"
               size="large"
-              onClick={() => handleClickNotRegister(goods.goodsId)}
+              onClick={() => {
+                handleClickCancelSale(goods.goodsId);
+                handleClickCancelSaleHolding(goods.goodsId);
+              }}
             >
               판매취소
             </Button>

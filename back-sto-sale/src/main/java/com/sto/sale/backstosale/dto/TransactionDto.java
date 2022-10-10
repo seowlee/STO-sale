@@ -19,8 +19,14 @@ public class TransactionDto {
 	private Integer transactionStat;
 	private Date transactionDt;
 
+	public void cancle_previousTransaction(CancellationSaleDto cancellationSaleDto) {
+		if (this.transactionStat == 0) {
+			this.transactionStat = 2;
+		}
+	}
+
 	public void cancle_transaction(CancellationSaleDto cancellationSaleDto) {
-		this.transactionId = cancellationSaleDto.getGoodsId() + 100000;
+		this.transactionId = cancellationSaleDto.getGoodsId() + 1;
 		this.transactionStat = 1;
 		this.transactionDt = new Date();
 	}

@@ -39,9 +39,12 @@ public class TransactionService {
 		System.out.println("delete: " + cancellationSaleDto.getGoodsId());
 		List<TransactionDto> transactionDtos = transactionRepository.findBySelectedTransactions(cancellationSaleDto.getGoodsId());
 		for (TransactionDto dto : transactionDtos) {
+			dto.cancle_previousTransaction(cancellationSaleDto);
+			Transaction canclePrevious = new Transaction(dto);
+			transactionRepository.save(canclePrevious);
 			dto.cancle_transaction(cancellationSaleDto);
-			Transaction cancle = new Transaction(dto);
-			transactionRepository.save(cancle);
+			Transaction cancleAfter = new Transaction(dto);
+			transactionRepository.save(cancleAfter);
 		}
 
 		return transactionDtos;

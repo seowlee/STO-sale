@@ -42,7 +42,7 @@ public class SpringConfig {
 
 	@Bean
 	public UserService userService() {
-		return new UserService(userRepository);
+		return new UserService(userRepository, holdingRepository);
 	}
 
 	@Bean

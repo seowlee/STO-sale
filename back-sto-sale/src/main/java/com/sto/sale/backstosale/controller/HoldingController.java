@@ -5,10 +5,7 @@ import com.sto.sale.backstosale.dto.GoodsHoldingDto;
 import com.sto.sale.backstosale.dto.HoldingDto;
 import com.sto.sale.backstosale.service.HoldingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,15 +57,15 @@ public class HoldingController {
 	}
 
 //	@GetMapping("/holding/delete")
-//	public List<HoldingDto> getDeleteGoodsHoldings(@RequestParam Long goods_id) {
-//		List<HoldingDto> holdingDtos = holdingService.findGoodsHolding(goods_id);
-//		return holdingDtos;
+//	public List<HoldingDto> getDeletingGoodsHoldings(@RequestBody CancellationSaleDto cancellationSaleDto) {
+//		List<HoldingDto> holdingDtolist = holdingService.findGoodsHoldings(cancellationSaleDto);
+//		return holdingDtolist;
 //	}
 
-	@PostMapping("/holding/delete")
-	public List<HoldingDto> deleteGoodsHoldings(@RequestBody CancellationSaleDto cancleDto) {
+	@DeleteMapping("/holding/delete")
+	public List<HoldingDto> getDeletedGoodsHoldings(@RequestBody CancellationSaleDto cancellationSaleDto) {
 //		System.out.println("delete: " + cancleDto.getGoodsId());
-		List<HoldingDto> holdingDtos = holdingService.findGoodsHolding(cancleDto);
+		List<HoldingDto> holdingDtos = holdingService.findGoodsHoldings(cancellationSaleDto);
 		return holdingDtos;
 	}
 

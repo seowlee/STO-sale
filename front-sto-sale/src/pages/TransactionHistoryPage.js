@@ -79,6 +79,9 @@ const TransactionHistoryPage = () => {
                 {trnsc.transactionStat === 1 && (
                   <StyledTableCell align="right">판매취소</StyledTableCell>
                 )}
+                {trnsc.transactionStat === 2 && (
+                  <StyledTableCell align="right">구매후 취소됨</StyledTableCell>
+                )}
                 <StyledTableCell align="right">
                   {trnsc.transactionDt}
                 </StyledTableCell>

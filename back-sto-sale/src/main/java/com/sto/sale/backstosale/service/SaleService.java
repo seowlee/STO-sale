@@ -55,7 +55,7 @@ public class SaleService {
 	}
 
 	/**
-	 * 선택된 상품 판매 취소. 판매 정보 삭제
+	 * 선택된 상품 판매 취소. 판매 정보 삭제 (0으로 초기화)
 	 */
 	public SaleDto resetGoodsSale(CancellationSaleDto cancellationSaleDto) {
 		SaleDto saleDto = saleRepository.findBySaleProductId(cancellationSaleDto.getGoodsId());

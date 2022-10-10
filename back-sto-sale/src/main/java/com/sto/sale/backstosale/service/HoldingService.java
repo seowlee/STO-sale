@@ -112,8 +112,15 @@ public class HoldingService {
 		return addedHoldingDto;
 	}
 
-	public List<HoldingDto> findGoodsHolding(CancellationSaleDto cancledDto) {
-		List<HoldingDto> deletedHoldingDtos = holdingRepository.findByGoodsHolding(cancledDto.getGoodsId());
+	/**
+	 * 선택된 상품 판매 취소. 보유 테이블에서 선택 상품 포함된 행 삭제
+	 */
+	public List<HoldingDto> findGoodsHoldings(CancellationSaleDto cancledDto) {
+		List<HoldingDto> deletedHoldingDtos = holdingRepository.findByGoodsHoldings(cancledDto.getGoodsId());
+		for (HoldingDto deletingHolding : deletedHoldingDtos) {
+			Holding holding = new Holding(deletingHolding);
+			holdingRepository.delete(holding);
+		}
 		return deletedHoldingDtos;
 	}
 

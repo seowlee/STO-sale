@@ -33,7 +33,7 @@ public class TransactionController {
 		return transactionDto;
 	}
 
-	@PostMapping("/transaction/delete")
+	@PostMapping("/transaction/cancel")
 	public CancellationSaleDto deleteGoodsTransaction(@RequestBody CancellationSaleDto cancellationSaleDto) {
 		transactionService.resetGoodsTransaction(cancellationSaleDto);
 		return cancellationSaleDto;
