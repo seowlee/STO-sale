@@ -57,7 +57,14 @@ public class HoldingService {
 	 */
 	public List<GoodsHoldingDto> findListHolding() {
 		QHolding qHolding = QHolding.holding;
-		List<GoodsHoldingDto> list = jpaQueryFactory.select(Projections.fields(GoodsHoldingDto.class, product.goods_id.as("goodsId"), product.goods_nm.as("goodsNm"), qHolding.goods_cnt.sum().as("sumGoodsCnt"), Expressions.stringTemplate("group_concat({0})", qHolding.user.user_id).as("userIds")))
+		List<GoodsHoldingDto> list = jpaQueryFactory
+				.select(Projections.fields(
+						GoodsHoldingDto.class,
+						product.goods_id.as("goodsId"),
+						product.goods_nm.as("goodsNm"),
+						qHolding.goods_cnt.sum().as("sumGoodsCnt"),
+						Expressions.stringTemplate("group_concat({0})", qHolding.user.user_id).as("userIds")
+				))
 				.from(qHolding)
 				.join(qHolding.product, product)
 				.join(qHolding.user, user)
@@ -73,7 +80,14 @@ public class HoldingService {
 	 */
 	public List<UserHoldingDto> findListUserHolding() {
 		QHolding qHolding = QHolding.holding;
-		List<UserHoldingDto> userList = jpaQueryFactory.select(Projections.fields(UserHoldingDto.class, user.user_id.as("userId"), user.user_nm.as("userNm"), Expressions.stringTemplate("group_concat({0})", qHolding.product.goods_id).as("goodsIds"), Expressions.stringTemplate("group_concat({0})", qHolding.goods_cnt).as("goodsCnts")))
+		List<UserHoldingDto> userList = jpaQueryFactory
+				.select(Projections.fields(
+						UserHoldingDto.class,
+						user.user_id.as("userId"),
+						user.user_nm.as("userNm"),
+						Expressions.stringTemplate("group_concat({0})", qHolding.product.goods_id).as("goodsIds"),
+						Expressions.stringTemplate("group_concat({0})", qHolding.goods_cnt).as("goodsCnts")
+				))
 				.from(qHolding)
 				.join(qHolding.product, product)
 				.join(qHolding.user, user)
