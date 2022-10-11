@@ -76,46 +76,50 @@ const GoodsHoldingPage = () => {
 
   return (
     <div>
-      {holdings.map((goods, idx) => (
-        <Accordion
-          key={goods.goodsId}
-          expanded={expandedAccordion === `panel_${idx}`}
-          onChange={handleChangeAccordion(`panel_${idx}`)}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+      {holdings.length > 0 ? (
+        holdings.map((goods, idx) => (
+          <Accordion
+            key={goods.goodsId}
+            expanded={expandedAccordion === `panel_${idx}`}
+            onChange={handleChangeAccordion(`panel_${idx}`)}
           >
-            <Stack spacing={2}>
-              <Typography variant="h5" component="div">
-                상품 아이디 : {goods.goodsId}, 상품명 : {goods.goodsNm}
-              </Typography>
-            </Stack>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="h6">
-              판매상품 개수 : {goods.sumGoodsCnt} <br />
-              보유자들 : {goods.userIds}
-            </Typography>
-            <br />
-          </AccordionDetails>
-
-          <Divider />
-          <AccordionActions>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => {
-                handleClickCancelSale(goods.goodsId);
-                // handleClickCancelSaleHolding(goods.goodsId);
-              }}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
             >
-              판매취소
-            </Button>
-          </AccordionActions>
-        </Accordion>
-      ))}
+              <Stack spacing={2}>
+                <Typography variant="h5" component="div">
+                  상품 아이디 : {goods.goodsId}, 상품명 : {goods.goodsNm}
+                </Typography>
+              </Stack>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="h6">
+                판매상품 개수 : {goods.sumGoodsCnt} <br />
+                보유자들 : {goods.userIds}
+              </Typography>
+              <br />
+            </AccordionDetails>
+
+            <Divider />
+            <AccordionActions>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={() => {
+                  handleClickCancelSale(goods.goodsId);
+                  // handleClickCancelSaleHolding(goods.goodsId);
+                }}
+              >
+                판매취소
+              </Button>
+            </AccordionActions>
+          </Accordion>
+        ))
+      ) : (
+        <div> No product found </div>
+      )}
     </div>
   );
 };
