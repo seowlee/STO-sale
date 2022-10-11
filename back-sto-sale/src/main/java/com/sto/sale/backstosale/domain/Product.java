@@ -1,6 +1,7 @@
 package com.sto.sale.backstosale.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sto.sale.backstosale.dto.ProductStatDto;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -58,4 +59,23 @@ public class Product {
         this.goods_id = goods_id;
         this.total_cnt = total_cnt;
     }
+
+    public Product(ProductStatDto productDto) {
+        this.goods_id = productDto.getGoods_id();
+        this.goods_nm = productDto.getGoods_nm();
+        this.stat = productDto.getStat();
+        this.total_amt = productDto.getTotal_amt();
+        this.sale_amt = productDto.getSale_amt();
+        this.unit_amt = productDto.getUnit_amt();
+        this.total_cnt = productDto.getTotal_cnt();
+        this.order_fee = productDto.getOrder_fee();
+        this.trade_fee = productDto.getTrade_fee();
+        this.sale_fee = productDto.getSale_fee();
+        this.created_dt = productDto.getCreated_dt();
+        this.updated_dt = productDto.getUpdated_dt();
+        this.created_by = productDto.getCreated_by();
+        this.updated_by = productDto.getUpdated_by();
+        this.sale = new Sale(productDto.getGoods_id(), productDto.getSale_cnt());
+    }
+
 }

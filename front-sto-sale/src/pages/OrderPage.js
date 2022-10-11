@@ -118,6 +118,19 @@ const OrderPage = () => {
     setOpen(false);
   };
 
+  const handleClickChangeGoodsStat = () => {
+    axios
+      .post(`/product/stat/update`, {
+        goodsId: goods_id,
+      })
+      .then((res) => {
+        console.log("goods stat", res);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
   // console.log("Quantity", typeof purchaseQuantity);
   // console.log("param", goods_id);
   // console.log("Success", userIds);
@@ -227,7 +240,13 @@ const OrderPage = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseCancel}>취소</Button>
-          <Button onClick={handleCloseCheck} autoFocus>
+          <Button
+            onClick={() => {
+              handleCloseCheck();
+              handleClickChangeGoodsStat();
+            }}
+            autoFocus
+          >
             확인
           </Button>
         </DialogActions>

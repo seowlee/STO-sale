@@ -47,6 +47,12 @@ public class Sale {
 //        this.sale_rate = sale_rate;
 //    }
 
+
+    public Sale(Long sale_goods_id, Integer sale_cnt) {
+        this.sale_goods_id = sale_goods_id;
+        this.sale_cnt = sale_cnt;
+    }
+
     public Sale(SaleDto saleDto) {
         this.sale_goods_id = saleDto.getSale_goods_id();
         this.sale_cnt = saleDto.getSale_cnt();
