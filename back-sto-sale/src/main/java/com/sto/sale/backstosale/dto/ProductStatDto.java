@@ -13,33 +13,42 @@ import java.util.Date;
 @Data
 public class ProductStatDto {
 
-    private Long goods_id;
-    private String goods_nm;
-    private Integer stat;
-    private Integer total_amt;
-    private Integer sale_amt;
-    private Integer unit_amt;
-    private Integer total_cnt;
-    private Double order_fee;
-    private Double trade_fee;
-    private Double sale_fee;
-    //
-    private Date created_dt;
-    private Date updated_dt;
-    //
-    private String created_by;
-    private String updated_by;
+	private Long goods_id;
+	private String goods_nm;
+	private Integer stat;
+	private Integer total_amt;
+	private Integer sale_amt;
+	private Integer unit_amt;
+	private Integer total_cnt;
+	private Double order_fee;
+	private Double trade_fee;
+	private Double sale_fee;
+	//
+	private Date created_dt;
+	private Date updated_dt;
+	//
+	private String created_by;
+	private String updated_by;
 
-    private Integer sale_cnt;
-    private Double sale_rate;
+	private Integer sale_cnt;
+	private Double sale_rate;
 
-    public void update_stat(Integer sale_cnt, Integer total_cnt) {
-        this.total_cnt = total_cnt;
-        this.sale_cnt = sale_cnt;
-        if (this.total_cnt == this.sale_cnt) {
-            this.stat = 1;
-        }
-    }
+	public void update_stat(Integer sale_cnt, Integer total_cnt) {
+		System.out.println("update stat: sale_cnt " + sale_cnt + "total_cnt " + total_cnt);
+		this.total_cnt = total_cnt;
+		this.sale_cnt = sale_cnt;
+//		System.out.println("&&&&&&&&" + this.sale_cnt + "#####" + this.total_cnt);
+		boolean res = this.sale_cnt.equals(this.total_cnt);
+		System.out.println("operator" + res);
+		if (this.sale_cnt.equals(this.total_cnt)) {
+			System.out.println("yuiuyouiup");
+			this.stat = 1;
+		}
+	}
+
+	public void reset_stat() {
+		this.stat = 0;
+	}
 //    //    @Builder
 //    public ProductDto(String goods_nm, Integer stat, Integer total_amt, Double sale_rate) {
 //

@@ -33,11 +33,11 @@ const GoodsHoldingPage = () => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
 
-  const handleClickCancelSale = (goodsId) => {
+  const handleClickCancelSale = async (goodsId) => {
     setGoodsId(goodsId);
     alert(`cancel ${goodsId}`);
-    axios
-      .all([
+    try {
+      const [res1, res2, res3, res4] = await Promise.all([
         axios.post(`/sale/delete`, {
           goodsId: goodsId,
         }),
@@ -47,29 +47,32 @@ const GoodsHoldingPage = () => {
         axios.post(`/user/delete`, {
           goodsId: goodsId,
         }),
-      ])
-      .then(
-        axios.spread((res1, res2, res3) => {
-          console.log("res1", res1, "res2", res2, "res3", res3);
-        })
-      )
-      .catch((error) => {
-        console.log("error", error);
+        axios.post(`/product/stat/reset`, {
+          goodsId: goodsId,
+        }),
+      ]);
+      console.log("res1", res1, "res2", res2, "res3", res3, "res4", res4);
+      const res5 = await axios.delete(`/holding/delete`, {
+        data: { goodsId: goodsId },
       });
+      console.log("res5", res5);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
-  const handleClickCancelSaleHolding = (goodsId) => {
-    axios
-      .delete(`/holding/delete`, {
-        data: { goodsId: goodsId },
-      })
-      .then((res) => {
-        console.log("delete holding", res);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
+  // const handleClickCancelSaleHolding = (goodsId) => {
+  //   axios
+  //     .delete(`/holding/delete`, {
+  //       data: { goodsId: goodsId },
+  //     })
+  //     .then((res) => {
+  //       console.log("delete holding", res);
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // };
 
   return (
     <div>
@@ -105,7 +108,7 @@ const GoodsHoldingPage = () => {
               size="large"
               onClick={() => {
                 handleClickCancelSale(goods.goodsId);
-                handleClickCancelSaleHolding(goods.goodsId);
+                // handleClickCancelSaleHolding(goods.goodsId);
               }}
             >
               판매취소

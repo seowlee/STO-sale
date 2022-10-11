@@ -20,6 +20,8 @@ import {
   Alert,
   AlertTitle,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 // import { DetailProductContext } from "./ListProductsSalePage";
 
 const OrderPage = () => {
@@ -80,10 +82,11 @@ const OrderPage = () => {
     setOpen(false);
   };
 
-  const handleCloseCheck = () => {
+  const navigate = useNavigate();
+  const handleCloseCheck = async () => {
     const transactionDate = new Date();
-    axios
-      .all([
+    try {
+      const [res1, res2, res3, res4] = await Promise.all([
         axios.post(`/holding/add`, {
           userId: user,
           goodsId: goods_id,
@@ -106,30 +109,31 @@ const OrderPage = () => {
           user_id: user,
           price: totalPurchasePrice,
         }),
-      ])
-      .then(
-        axios.spread((res1, res2, res3, res4) => {
-          console.log("res1", res1, "res2", res2, "res3", res3, "res4", res4);
-        })
-      )
-      .catch((error) => {
-        console.log("error", error);
-      });
-    setOpen(false);
-  };
-
-  const handleClickChangeGoodsStat = () => {
-    axios
-      .post(`/product/stat/update`, {
+      ]);
+      console.log("res1", res1, "res2", res2, "res3", res3, "res4", res4);
+      const res5 = await axios.post(`/product/stat/update`, {
         goodsId: goods_id,
-      })
-      .then((res) => {
-        console.log("goods stat", res);
-      })
-      .catch((error) => {
-        console.log("error", error);
       });
+      console.log("res5", res5);
+    } catch (error) {
+      console.log("error", error);
+    }
+    setOpen(false);
+    navigate("/listOnSale");
   };
+  // const handleClickChangeGoodsStat = () => {
+  //   axios
+  //     .post(`/product/stat/update`, {
+  //       goodsId: goods_id,
+  //     })
+  //     .then((res) => {
+  //       console.log("goods stat", res);
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  //   navigate("/listOnSale");
+  // };
 
   // console.log("Quantity", typeof purchaseQuantity);
   // console.log("param", goods_id);
@@ -243,7 +247,6 @@ const OrderPage = () => {
           <Button
             onClick={() => {
               handleCloseCheck();
-              handleClickChangeGoodsStat();
             }}
             autoFocus
           >
