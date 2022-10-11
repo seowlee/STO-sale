@@ -213,7 +213,7 @@ const OrderPage = () => {
         </Grid>
         <br />
       </Paper>
-      <Paper>
+      <Paper style={{ marginBottom: 50 }}>
         <Button
           onClick={(event) =>
             purchaseQuantity > availableQuantity
