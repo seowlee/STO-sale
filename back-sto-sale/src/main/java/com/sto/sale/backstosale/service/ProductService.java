@@ -53,6 +53,25 @@ public class ProductService {
 	}
 
 	/**
+	 * 판매 완료 상품 목록 조회 (Product join Sale)
+	 */
+	public List<ProductDto> findSoldOutProducts(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return productRepository.findBySoldOutProducts(pageable);
+	}
+
+	/**
+	 * 판매 완료 상품 목록의 상품 총 개수
+	 */
+
+	public Long findSoldOutProductsCnt() {
+		Pageable pageable = PageRequest.of(0, 5);
+		Page<Product> productPage = productRepository.findBySoldOutProductsCnt(pageable);
+		Long totalCnt = productPage.getTotalElements();
+		return totalCnt;
+	}
+
+	/**
 	 * 판매 상품 한 건 조회 (구매 상세페이지)
 	 */
 	public ProductDto findProductId(Long id) {
@@ -61,6 +80,9 @@ public class ProductService {
 		// findById시 에러가 발생할 수 있기에 람다식으로 에러 처리
 	}
 
+	/**
+	 * 상품 판매 완료 시 상품 상태(stat) 업데이트
+	 */
 	public ProductStatDto changeGoodsStat(CompletionSaleDto completionSaleDto) {
 		ProductStatDto productStatDto = productRepository.findByProductIdWithStat(completionSaleDto.getGoodsId());
 		System.out.println("changestat" + completionSaleDto.getGoodsId());
@@ -74,6 +96,9 @@ public class ProductService {
 		return productStatDto;
 	}
 
+	/**
+	 * 선택한 상품 판매 취소 시 상품 상태(stat) 초기화
+	 */
 	public ProductStatDto resetGoodsStat(CancellationSaleDto cancellationSaleDto) {
 		ProductStatDto productStatDto = productRepository.findByProductIdWithStat(cancellationSaleDto.getGoodsId());
 		SaleDto saleDto = saleRepository.findBySaleProductId(cancellationSaleDto.getGoodsId());

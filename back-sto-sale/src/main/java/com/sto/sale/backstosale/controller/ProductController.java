@@ -57,6 +57,18 @@ public class ProductController {
 		return totalOnSaleProductCnt;
 	}
 
+	@GetMapping("/product/sold-out")
+	public List<ProductDto> getSoldOutProduct(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "5") Integer size) {
+		List<ProductDto> soldOutProduct = productService.findSoldOutProducts(page, size);
+		return soldOutProduct;
+	}
+
+	@GetMapping("/product/sold-out/count")
+	public Long getSoldOutProductCnt() {
+		Long totalSoldOutProductCnt = productService.findSoldOutProductsCnt();
+		return totalSoldOutProductCnt;
+	}
+
 	@GetMapping("/product/order/{id}")
 	public Optional<ProductDto> getOne(@PathVariable Long id) {
 		Optional<ProductDto> optionalProduct = Optional.ofNullable(productService.findProductId(id));

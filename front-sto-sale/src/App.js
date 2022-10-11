@@ -10,6 +10,8 @@ import HomePage from "./pages/HomePage";
 import GoodsHoldingPage from "./pages/GoodsHoldingPage";
 import TransactionHistoryPage from "./pages/TransactionHistoryPage";
 import UserHoldingPage from "./pages/UserHoldingPage";
+import ListProductsSoldOutPage from "./pages/ListProductsSoldOutPage";
+import InfoProductSoldOutPage from "./pages/InfoProductSoldOutPage";
 
 function App() {
   // const [message, setMessage] = useState([]);
@@ -62,13 +64,21 @@ function App() {
           ></Route> */}
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/listOnSale" element={<ListProductsSalePage />}></Route>
+          <Route path="/order/:goods_id" element={<OrderPage />}></Route>
+          <Route
+            path="/listSoldOut"
+            element={<ListProductsSoldOutPage />}
+          ></Route>
+          <Route
+            path="/listSoldOut/info/:goods_id"
+            element={<InfoProductSoldOutPage />}
+          ></Route>
           <Route path="/goodsHoldings" element={<GoodsHoldingPage />}></Route>
+          <Route path="/userHoldings" element={<UserHoldingPage />}></Route>
           <Route
             path="/transactionHistory"
             element={<TransactionHistoryPage />}
           ></Route>
-          <Route path="/order/:goods_id" element={<OrderPage />}></Route>
-          <Route path="/userHoldings" element={<UserHoldingPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
