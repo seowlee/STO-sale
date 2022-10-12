@@ -1,25 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Paper,
-  InputAdornment,
-  TextField,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-  Grid,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Alert,
-  AlertTitle,
-} from "@mui/material";
+import { Box, Button, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // import { DetailProductContext } from "./ListProductsSalePage";
@@ -28,11 +10,11 @@ const InfoProductSoldOutPage = () => {
   const { goods_id } = useParams();
   // const { detailProduct } = useContext(DetailProductContext);
   const [detailProduct, setDetailProduct] = useState({});
-  const [userIds, setUserIds] = useState([]);
-  const [purchaseQuantity, setPurchaseQuantity] = useState("");
-  const [user, setUser] = useState("");
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  // const [userIds, setUserIds] = useState([]);
+  // const [purchaseQuantity, setPurchaseQuantity] = useState("");
+  // const [user, setUser] = useState("");
+  // const [open, setOpen] = useState(false);
+  // const [open2, setOpen2] = useState(false);
 
   useEffect(() => {
     axios
@@ -92,7 +74,13 @@ const InfoProductSoldOutPage = () => {
       </Box>
 
       <Paper style={{ marginBottom: 50 }}>
-        <Button>돌아가기</Button>
+        <Button
+          size="large"
+          variant="contained"
+          onClick={() => navigate("/listSoldOut")}
+        >
+          돌아가기
+        </Button>
       </Paper>
     </div>
   );
