@@ -37,7 +37,7 @@ const GoodsHoldingPage = () => {
     setGoodsId(goodsId);
     alert(`cancel ${goodsId}`);
     try {
-      const [res1, res2, res3, res4] = await Promise.all([
+      const [res1, res2, res3] = await Promise.all([
         axios.post(`/sale/delete`, {
           goodsId: goodsId,
         }),
@@ -47,15 +47,17 @@ const GoodsHoldingPage = () => {
         axios.post(`/user/delete`, {
           goodsId: goodsId,
         }),
+      ]);
+      console.log("res1", res1, "res2", res2, "res3", res3);
+      const [res4, res5] = await Promise.all([
+        axios.delete(`/holding/delete`, {
+          data: { goodsId: goodsId },
+        }),
         axios.post(`/product/stat/reset`, {
           goodsId: goodsId,
         }),
       ]);
-      console.log("res1", res1, "res2", res2, "res3", res3, "res4", res4);
-      const res5 = await axios.delete(`/holding/delete`, {
-        data: { goodsId: goodsId },
-      });
-      console.log("res5", res5);
+      console.log("res4", res4, "res5", res5);
     } catch (error) {
       console.log("error", error);
     }
