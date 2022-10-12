@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,6 +21,8 @@ public class User {
     @Id
     private Long user_id;
     private Integer user_account;
+    // use purun schema
+    @Column(name = "user_name")
     private String user_nm;
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
