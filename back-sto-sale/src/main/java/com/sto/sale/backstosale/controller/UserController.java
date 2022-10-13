@@ -2,6 +2,7 @@ package com.sto.sale.backstosale.controller;
 
 import com.sto.sale.backstosale.dto.CancellationSaleDto;
 import com.sto.sale.backstosale.dto.UserAccountDto;
+import com.sto.sale.backstosale.dto.UserDto;
 import com.sto.sale.backstosale.dto.UserLoggedInDto;
 import com.sto.sale.backstosale.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class UserController {
     public UserLoggedInDto postLoggedInUser(@RequestBody UserLoggedInDto userLoggedInDto) {
         userService.updateUserStat(userLoggedInDto);
         return userLoggedInDto;
+    }
+
+    @GetMapping("user/loggedIn")
+    public UserDto getLoggedInStatUser() {
+        UserDto userDto = userService.findLoggedInStatUser();
+        return userDto;
     }
 
     @PostMapping("user/update")

@@ -54,9 +54,9 @@ const ListProductsSalePage = () => {
   }, []);
   // }, [currentPage, indexOfLastPost, indexOfFirstPost, products, postPerPage]);
 
-  const setPage = (error) => {
-    setCurrentPage(error);
-  };
+  // const setPage = (error) => {
+  //   setCurrentPage(error);
+  // };
 
   const handlePageChange = (currentPage) => {
     setCurrentPage(currentPage);
@@ -130,7 +130,9 @@ const ListProductsSalePage = () => {
                 <Grid item={true} xs={9}>
                   {/* <ProgressBar /> */}
                   <Box sx={{ width: "100%" }}>
-                    <ProgressBar value={productData.sale_rate} />
+                    <ProgressBar
+                      value={Math.floor(productData.sale_rate * 100) / 100}
+                    />
                   </Box>
                 </Grid>
               </Grid>

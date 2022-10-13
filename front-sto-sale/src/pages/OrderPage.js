@@ -7,10 +7,6 @@ import {
   Paper,
   InputAdornment,
   TextField,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
   Grid,
   Dialog,
   DialogActions,
@@ -28,21 +24,23 @@ const OrderPage = () => {
   const { goods_id } = useParams();
   // const { detailProduct } = useContext(DetailProductContext);
   const [detailProduct, setDetailProduct] = useState({});
-  const [userIds, setUserIds] = useState([]);
+  // const [userIds, setUserIds] = useState([]);
   const [purchaseQuantity, setPurchaseQuantity] = useState("");
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openFailQuantity, setOpenFailQuantity] = useState(false);
   const [openFailLackBalance, setOpenFailLackBalance] = useState(false);
-  const [userAccount, setUserAccount] = useState(10);
 
   useEffect(() => {
     axios
-      .all([axios.get(`/product/order/${goods_id}`), axios.get(`/user/ids`)])
+      .all([
+        axios.get(`/product/order/${goods_id}`),
+        axios.get(`/user/loggedIn`),
+      ])
       .then(
         axios.spread((res1, res2) => {
           setDetailProduct(res1.data);
-          setUserIds(res2.data);
+          setUser(res2.data);
           // console.log("detailtest", res);
         })
       )
@@ -51,23 +49,28 @@ const OrderPage = () => {
       });
   }, [goods_id]);
 
-  const totalPurchasePrice = purchaseQuantity * detailProduct.unit_amt;
+  const totalGoodsPrice = purchaseQuantity * detailProduct.unit_amt;
+  const totalPurchasePrice = parseInt(
+    purchaseQuantity *
+      detailProduct.unit_amt *
+      (1 + detailProduct.order_fee / 100)
+  );
   const availableQuantity = detailProduct.total_cnt - detailProduct.sale_cnt;
 
-  const handleChangeUser = (event) => {
-    setUser(event.target.value);
-  };
+  // const handleChangeUser = (event) => {
+  //   setUser(event.target.value);
+  // };
 
   const handleClickOptionPurchase = (event) => {
     if (purchaseQuantity > availableQuantity) {
       handleClickFailPurchaseQuantity();
-      // } else if (userAccount < totalPurchasePrice) {
-      //   handleClickFailPurchaseLackBalance();
+    } else if (user.user_account < totalPurchasePrice) {
+      handleClickFailPurchaseLackBalance();
     } else {
       handleClickPurchase();
     }
   };
-  console.log("accccccount", userAccount);
+  console.log("accccccount", user.user_account);
 
   const handleClickPurchase = (event, id) => {
     setOpenSuccess(true);
@@ -105,7 +108,7 @@ const OrderPage = () => {
     try {
       const [res1, res2, res3, res4] = await Promise.all([
         axios.post(`/holding/add`, {
-          userId: user,
+          userId: user.user_id,
           goodsId: goods_id,
           goods_cnt: purchaseQuantity,
         }),
@@ -116,14 +119,14 @@ const OrderPage = () => {
           total_cnt: detailProduct.total_cnt,
         }),
         axios.post(`/transaction/add`, {
-          userId: user,
+          userId: user.user_id,
           goodsId: goods_id,
           transactionCnt: purchaseQuantity,
           transactionStat: 0,
           transactionDt: transactionDate,
         }),
         axios.post(`/user/update`, {
-          user_id: user,
+          user_id: user.user_id,
           price: totalPurchasePrice,
         }),
       ]);
@@ -187,7 +190,7 @@ const OrderPage = () => {
       <Paper variant="outlined" sx={{ m: 1 }}>
         <br />
         <Grid container spacing={2}>
-          <Grid item={true} xs={6}>
+          {/* <Grid item={true} xs={6}>
             <FormControl sx={{ minWidth: 230 }}>
               <InputLabel id="user-id-select-label">UserID</InputLabel>
               <Select
@@ -201,14 +204,14 @@ const OrderPage = () => {
                   <MenuItem key={idx} value={userId}>
                     {userId}
                   </MenuItem>
-                ))}
-                {/* <MenuItem value={1}>1</MenuItem>
+                ))} */}
+          {/* <MenuItem value={1}>1</MenuItem>
                  <MenuItem value={2}>2</MenuItem>
                  <MenuItem value={3}>3</MenuItem> */}
-              </Select>
+          {/* </Select>
             </FormControl>
-          </Grid>
-          <Grid item={true} xs={6}>
+          </Grid> */}
+          <Grid item={true} xs={12}>
             <TextField
               id="outlined-number"
               label="구매 수량"
@@ -231,7 +234,13 @@ const OrderPage = () => {
         <br />
       </Paper>
       <Paper style={{ marginBottom: 50 }}>
-        <Button onClick={(event) => handleClickOptionPurchase()}>구매</Button>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={(event) => handleClickOptionPurchase()}
+        >
+          구매
+        </Button>
       </Paper>
       <Dialog
         fullWidth={true}
@@ -244,8 +253,9 @@ const OrderPage = () => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <span style={{ color: "black" }}>
-              user id : {user} <br />
+              user id : {user.user_id} <br />
               구매 수량 : {purchaseQuantity} 개
+              <br />총 상품 가격 : {totalGoodsPrice} 원
               <br />총 구매 가격 : {totalPurchasePrice} 원
               <br />
             </span>

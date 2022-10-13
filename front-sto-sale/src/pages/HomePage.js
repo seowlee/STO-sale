@@ -12,8 +12,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Alert,
-  AlertTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -22,6 +20,7 @@ const HomePage = () => {
   const [userIds, setUserIds] = useState([]);
   const [user, setUser] = useState("");
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handlePostSaleInfo = () => {
     axios
@@ -67,6 +66,7 @@ const HomePage = () => {
         console.log("error", error);
       });
     setOpen(false);
+    navigate("/listOnSale");
   };
 
   return (
