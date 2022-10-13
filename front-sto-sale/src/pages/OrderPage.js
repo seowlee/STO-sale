@@ -31,8 +31,10 @@ const OrderPage = () => {
   const [userIds, setUserIds] = useState([]);
   const [purchaseQuantity, setPurchaseQuantity] = useState("");
   const [user, setUser] = useState("");
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openFailQuantity, setOpenFailQuantity] = useState(false);
+  const [openFailLackBalance, setOpenFailLackBalance] = useState(false);
+  const [userAccount, setUserAccount] = useState(10);
 
   useEffect(() => {
     axios
@@ -56,30 +58,45 @@ const OrderPage = () => {
     setUser(event.target.value);
   };
 
+  const handleClickOptionPurchase = (event) => {
+    if (purchaseQuantity > availableQuantity) {
+      handleClickFailPurchaseQuantity();
+      // } else if (userAccount < totalPurchasePrice) {
+      //   handleClickFailPurchaseLackBalance();
+    } else {
+      handleClickPurchase();
+    }
+  };
+  console.log("accccccount", userAccount);
+
   const handleClickPurchase = (event, id) => {
-    setOpen(true);
-
-    //   // `한 조각 당 가격 : ${unitPrice}\n
-
-    // axios
-    //   .get("/product/insert", {
-    //     params: { purchaseQuantity: purchaseQuantity },
-    //   })
-    //   .catch(function () {
-    //     console.log("실패");
-    //   });
+    setOpenSuccess(true);
   };
-  const handleClickFailPurchase = (event, id) => {
-    setOpen2(true);
+
+  // 구매 가능 수량 초과 error dialog
+  const handleClickFailPurchaseQuantity = (event, id) => {
+    setOpenFailQuantity(true);
   };
-  const handleCloseFailPurchase = (event, id) => {
-    setOpen2(false);
+
+  const handleCloseFailPurchaseQuantity = (event, id) => {
+    setPurchaseQuantity("");
+    setOpenFailQuantity(false);
+  };
+
+  // 구매 금액 잔액 부족 error dialog
+  const handleClickFailPurchaseLackBalance = (event, id) => {
+    setOpenFailLackBalance(true);
+  };
+
+  const handleCloseFailPurchaseLackBalance = (event, id) => {
+    setPurchaseQuantity("");
+    setOpenFailLackBalance(false);
   };
 
   const handleCloseCancel = () => {
     setUser("");
     setPurchaseQuantity("");
-    setOpen(false);
+    setOpenSuccess(false);
   };
 
   const navigate = useNavigate();
@@ -118,7 +135,7 @@ const OrderPage = () => {
     } catch (error) {
       console.log("error", error);
     }
-    setOpen(false);
+    setOpenSuccess(false);
     navigate("/listOnSale");
   };
   // const handleClickChangeGoodsStat = () => {
@@ -214,19 +231,11 @@ const OrderPage = () => {
         <br />
       </Paper>
       <Paper style={{ marginBottom: 50 }}>
-        <Button
-          onClick={(event) =>
-            purchaseQuantity > availableQuantity
-              ? handleClickFailPurchase(event)
-              : handleClickPurchase(event)
-          }
-        >
-          구매
-        </Button>
+        <Button onClick={(event) => handleClickOptionPurchase()}>구매</Button>
       </Paper>
       <Dialog
         fullWidth={true}
-        open={open}
+        open={openSuccess}
         onClose={handleCloseCancel}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -254,10 +263,26 @@ const OrderPage = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog fullWidth={true} open={open2} onClose={handleCloseFailPurchase}>
+      <Dialog
+        fullWidth={true}
+        open={openFailQuantity}
+        onClose={handleCloseFailPurchaseQuantity}
+      >
         <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          This is an error alert — <strong>check it out!</strong>
+          <AlertTitle>구매 가능 수량 초과 Error</AlertTitle>
+          구매 수량은 구매 가능 수량을 초과할 수 없습니다! —{" "}
+          <strong>check it out!</strong>
+        </Alert>
+      </Dialog>
+      <Dialog
+        fullWidth={true}
+        open={openFailLackBalance}
+        onClose={handleCloseFailPurchaseLackBalance}
+      >
+        <Alert severity="error">
+          <AlertTitle>계좌 잔액 부족 Error</AlertTitle>
+          계좌 잔액이 부족하여 구매 할 수 없습니다! —{" "}
+          <strong>check it out!</strong>
         </Alert>
       </Dialog>
     </div>

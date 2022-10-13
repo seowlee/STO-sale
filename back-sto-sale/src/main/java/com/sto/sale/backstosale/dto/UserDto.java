@@ -10,21 +10,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UserDto {
-	private Long user_id;
-	private Integer user_account;
-	private String user_nm;
+    private Long user_id;
+    private Integer user_account;
+    private String user_nm;
+    private Integer user_stat;
 
-	public UserDto(Long user_id) {
-		this.user_id = user_id;
-	}
+    public UserDto(Long user_id) {
+        this.user_id = user_id;
+    }
 
-	public void update_user(Long user_id, Integer buyPrice) {
-		this.user_id = user_id;
-		this.user_account -= buyPrice;
-	}
+    public void update_stat(Long user_id) {
+        this.user_id = user_id;
+        this.user_stat = 1;
+    }
 
-	public void refund_user(Long user_id, Integer refundAmount) {
-		this.user_id = user_id;
-		this.user_account += refundAmount;
-	}
+    public void update_user(Long user_id, Integer buyPrice) {
+        this.user_id = user_id;
+        this.user_account -= buyPrice;
+    }
+
+    public void refund_user(Long user_id, Integer refundAmount) {
+        this.user_id = user_id;
+        this.user_account += refundAmount;
+    }
 }

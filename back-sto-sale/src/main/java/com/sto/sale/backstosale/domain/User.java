@@ -25,6 +25,8 @@ public class User {
     @Column(name = "user_name")
     private String user_nm;
 
+    private Integer user_stat;
+
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 //    private List<Transaction> transactions;
 
@@ -36,5 +38,6 @@ public class User {
         this.user_id = userDto.getUser_id();
         this.user_account = userDto.getUser_account();
         this.user_nm = userDto.getUser_nm();
+        this.user_stat = userDto.getUser_stat();
     }
 }
