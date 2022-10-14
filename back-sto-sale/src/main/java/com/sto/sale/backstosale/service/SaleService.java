@@ -6,6 +6,7 @@ import com.sto.sale.backstosale.dto.SaleDto;
 import com.sto.sale.backstosale.repository.SaleRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SaleService {
 	private SaleRepository saleRepository;
@@ -19,17 +20,24 @@ public class SaleService {
 	 * 상품 판매 정보 테이블에 상품 등록
 	 */
 	public Long register(Sale sale) {
-		validateDuplicateProduct(sale);
-		saleRepository.save(sale);
+		int isRegistered = validateDuplicateProduct(sale);
+		if (isRegistered == 0) {
+			saleRepository.save(sale);
+		}
 		System.out.println(sale.toString());
 		return sale.getProduct().getGoods_id();
+
 	}
 
-	private void validateDuplicateProduct(Sale sale) {
-		saleRepository.findById(sale.getProduct().getGoods_id())
-				.ifPresent(s -> {
-					throw new IllegalStateException("이미 저장된 상품입니다.");
-				});
+	private int validateDuplicateProduct(Sale sale) {
+		Optional<Sale> newSale = saleRepository.findById(sale.getProduct().getGoods_id());
+		if (newSale.isPresent()) {
+			return 1;
+		} else return 0;
+
+//				.ifPresent(s -> {
+//					throw new IllegalStateException("이미 저장된 상품입니다.");
+//				});
 	}
 
 	/**
