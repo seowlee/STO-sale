@@ -11,7 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Paging from "../components/Paging";
 
 // export const DetailProductContext = createContext();
@@ -47,7 +47,7 @@ const ListProductsSoldOutPage = () => {
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  }, [currentPage, postPerPage]);
 
   const handlePageChange = (currentPage) => {
     setCurrentPage(currentPage);

@@ -120,7 +120,9 @@ const HomePage = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"구매 내역"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          {"선택된 회원 아이디"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <span style={{ color: "black" }}>

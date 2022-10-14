@@ -33,6 +33,10 @@ const GoodsHoldingPage = () => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const handleClickCancelSale = async (goodsId) => {
     setGoodsId(goodsId);
     alert(`cancel ${goodsId}`);
@@ -61,6 +65,7 @@ const GoodsHoldingPage = () => {
     } catch (error) {
       console.log("error", error);
     }
+    refreshPage();
   };
 
   // const handleClickCancelSaleHolding = (goodsId) => {

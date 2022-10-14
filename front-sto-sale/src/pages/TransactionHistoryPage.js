@@ -38,7 +38,7 @@ const TransactionHistoryPage = () => {
   const [transactions, setTransactions] = useState([]);
   const [count, setCount] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(5);
+  const [postPerPage] = useState(10);
 
   useEffect(() => {
     axios
@@ -61,7 +61,7 @@ const TransactionHistoryPage = () => {
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  }, [currentPage, postPerPage]);
 
   const handlePageChange = (currentPage) => {
     setCurrentPage(currentPage);

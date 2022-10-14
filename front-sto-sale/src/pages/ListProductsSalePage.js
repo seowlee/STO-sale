@@ -11,7 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Paging from "../components/Paging";
 
 // export const DetailProductContext = createContext();
@@ -51,7 +51,7 @@ const ListProductsSalePage = () => {
     // setIndexOfLastPost(currentPage * postPerPage);
     // setIndexOfFirstPost(indexOfLastPost - postPerPage);
     // setCurrentPosts(products.slice(indexOfFirstPost, indexOfLastPost));
-  }, []);
+  }, [currentPage, postPerPage]);
   // }, [currentPage, indexOfLastPost, indexOfFirstPost, products, postPerPage]);
 
   // const setPage = (error) => {

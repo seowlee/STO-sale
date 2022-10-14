@@ -141,6 +141,11 @@ const OrderPage = () => {
     setOpenSuccess(false);
     navigate("/listOnSale");
   };
+
+  const convertDate = (date) => {
+    const newDate = date.slice(0, 19);
+    return newDate;
+  };
   // const handleClickChangeGoodsStat = () => {
   //   axios
   //     .post(`/product/stat/update`, {
