@@ -11,7 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Paging from "../components/Paging";
 
 // export const DetailProductContext = createContext();
@@ -20,6 +20,7 @@ const ListProductsSalePage = () => {
   const [count, setCount] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(5);
+  const [searchParams, setSearchParams] = useSearchParams();
   // const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   // const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   // const [currentPosts, setCurrentPosts] = useState(0);
@@ -41,6 +42,7 @@ const ListProductsSalePage = () => {
         axios.spread((res1, res2) => {
           setProducts(res1.data);
           setCount(res2.data);
+          // setSearchParams({ page: currentPage });
           console.log("res1", res1, "res2", res2);
         })
       )
@@ -51,7 +53,7 @@ const ListProductsSalePage = () => {
     // setIndexOfLastPost(currentPage * postPerPage);
     // setIndexOfFirstPost(indexOfLastPost - postPerPage);
     // setCurrentPosts(products.slice(indexOfFirstPost, indexOfLastPost));
-  }, [currentPage, postPerPage]);
+  }, [currentPage, postPerPage, setSearchParams]);
   // }, [currentPage, indexOfLastPost, indexOfFirstPost, products, postPerPage]);
 
   // const setPage = (error) => {
@@ -70,7 +72,8 @@ const ListProductsSalePage = () => {
       })
       .then((res) => {
         setProducts(res.data);
-        // console.log("test", res);
+        setSearchParams({ page: currentPage });
+        console.log("current page : ", searchParams.get("page"));
       })
       .catch((error) => {
         console.log("error", error);
@@ -90,7 +93,9 @@ const ListProductsSalePage = () => {
     <div style={{ marginBottom: 150 }}>
       {/* {currentPosts && products.length > 0 ? (
         currentPosts.map((productData, idx) => ( */}
-      {products.length > 0 ? (
+      {products.length <= 0 && currentPage === 1 ? (
+        <div> No product found </div>
+      ) : (
         products.map((productData, idx) => (
           <Card key={idx} sx={{ minWidth: 275 }} variant="outlined">
             <CardContent>
@@ -153,8 +158,6 @@ const ListProductsSalePage = () => {
             </CardActions>
           </Card>
         ))
-      ) : (
-        <div> No product found </div>
       )}
       {/* ) : (
         <div> No posts.</div>

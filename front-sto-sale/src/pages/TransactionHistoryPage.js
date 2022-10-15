@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Paging from "../components/Paging";
+import { useSearchParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,6 +40,7 @@ const TransactionHistoryPage = () => {
   const [count, setCount] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(10);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     axios
@@ -75,7 +77,8 @@ const TransactionHistoryPage = () => {
       })
       .then((res) => {
         setTransactions(res.data);
-        // console.log("test", res);
+        setSearchParams({ page: currentPage });
+        console.log("current page : ", searchParams.get("page"));
       })
       .catch((error) => {
         console.log("error", error);
@@ -98,7 +101,13 @@ const TransactionHistoryPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactions.length > 0 ? (
+              {transactions.length <= 0 && currentPage === 1 ? (
+                <StyledTableRow key={0}>
+                  <StyledTableCell component="th">
+                    No Transaction History
+                  </StyledTableCell>
+                </StyledTableRow>
+              ) : (
                 transactions.map((trnsc) => (
                   <StyledTableRow key={trnsc.transactionId}>
                     <StyledTableCell component="th" scope="trnsc">
@@ -129,8 +138,6 @@ const TransactionHistoryPage = () => {
                     </StyledTableCell>
                   </StyledTableRow>
                 ))
-              ) : (
-                <div>No Transaction History</div>
               )}
             </TableBody>
           </Table>

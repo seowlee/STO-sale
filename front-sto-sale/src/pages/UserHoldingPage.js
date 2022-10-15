@@ -33,35 +33,39 @@ const UserHoldingPage = () => {
 
   return (
     <div>
-      {holdings.map((user, idx) => (
-        <Accordion
-          key={user.userId}
-          expanded={expandedAccordion === `panel_${idx}`}
-          onChange={handleChangeAccordion(`panel_${idx}`)}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+      {holdings.length > 0 ? (
+        holdings.map((user, idx) => (
+          <Accordion
+            key={user.userId}
+            expanded={expandedAccordion === `panel_${idx}`}
+            onChange={handleChangeAccordion(`panel_${idx}`)}
           >
-            <Stack spacing={2}>
-              <Typography variant="h5" component="div">
-                유저 아이디 : {user.userId}, 유저이름 : {user.userNm}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Stack spacing={2}>
+                <Typography variant="h5" component="div">
+                  유저 아이디 : {user.userId}, 유저이름 : {user.userNm}
+                </Typography>
+              </Stack>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="h6">
+                상품목록 : {user.goodsIds} <br />
+                상품별 개수 : {user.goodsCnts}
               </Typography>
-            </Stack>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="h6">
-              상품목록 : {user.goodsIds} <br />
-              상품별 개수 : {user.goodsCnts}
-            </Typography>
-            <br />
-          </AccordionDetails>
+              <br />
+            </AccordionDetails>
 
-          <Divider />
-          <AccordionActions></AccordionActions>
-        </Accordion>
-      ))}
+            <Divider />
+            <AccordionActions></AccordionActions>
+          </Accordion>
+        ))
+      ) : (
+        <div> No product found </div>
+      )}
     </div>
   );
 };

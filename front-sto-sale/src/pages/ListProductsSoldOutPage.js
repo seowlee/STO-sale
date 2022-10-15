@@ -11,7 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Paging from "../components/Paging";
 
 // export const DetailProductContext = createContext();
@@ -20,12 +20,8 @@ const ListProductsSoldOutPage = () => {
   const [count, setCount] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(5);
-  // const [indexOfLastPost, setIndexOfLastPost] = useState(0);
-  // const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
-  // const [currentPosts, setCurrentPosts] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // const [progress, setProgress] = React.useState(10.0);
-  // console.log("mem", products);
   useEffect(() => {
     axios
       .all([
@@ -41,6 +37,7 @@ const ListProductsSoldOutPage = () => {
         axios.spread((res1, res2) => {
           setProducts(res1.data);
           setCount(res2.data);
+          // setSearchParams({ page: currentPage });
           console.log("res1", res1, "res2", res2);
         })
       )
@@ -61,7 +58,8 @@ const ListProductsSoldOutPage = () => {
       })
       .then((res) => {
         setProducts(res.data);
-        // console.log("test", res);
+        setSearchParams({ page: currentPage });
+        console.log("current page : ", searchParams.get("page"));
       })
       .catch((error) => {
         console.log("error", error);
@@ -78,7 +76,9 @@ const ListProductsSoldOutPage = () => {
     <div style={{ marginBottom: 150 }}>
       {/* {currentPosts && products.length > 0 ? (
         currentPosts.map((productData, idx) => ( */}
-      {products.length > 0 ? (
+      {products.length <= 0 && currentPage === 1 ? (
+        <div> No product found </div>
+      ) : (
         products.map((productData, idx) => (
           <Card key={idx} sx={{ minWidth: 275 }} variant="outlined">
             <CardContent>
@@ -136,12 +136,7 @@ const ListProductsSoldOutPage = () => {
             </CardActions>
           </Card>
         ))
-      ) : (
-        <div> No product found </div>
       )}
-      {/* ) : (
-        <div> No posts.</div>
-      )} */}
       <Paging
         page={currentPage}
         postPerPage={postPerPage}
